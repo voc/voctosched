@@ -1,5 +1,6 @@
 from .event import Event
 from .room import Room
+from ..xml import XmlSerializer
 
 
 class Day:
@@ -27,3 +28,15 @@ class Day:
             return self.end
 
         return max(room.get_end() for room in self.rooms.values())
+
+    def to_xml(self, serializer=None):
+        xml = serializer or XmlSerializer()
+        xml.enter("day", index=self.index, date=self.date,
+                  start=f"{self.get_start():%Y-%m-%dT%H:%M:%S}",
+                  end=f"{self.get_end():%Y-%m-%dT%H:%M:%S}")
+        for room in self.rooms.values():
+            room.to_xml(xml)
+        xml.exit("day")
+
+        if not serializer:
+            return xml.buffer

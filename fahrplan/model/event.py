@@ -1,18 +1,18 @@
-from uuid import uuid4
+from ..uuid import uuid
 from fahrplan.xml import XmlSerializer
 
 
 class Event:
-    def __init__(self, uid, date, start, duration, title, language, slug, rec_license, rec_optout,
-                 guid="", subtitle="", track="", event_type="", abstract="", description='', logo="",
-                 persons=None, links=None, attachments=None, download_url=None):
+    def __init__(self, uid, date, start, duration, title, language, slug, persons, rec_license="???",
+                 rec_optout=False, guid="", subtitle="", track="", event_type="", abstract="", description='',
+                 logo="", links=None, attachments=None, download_url=None):
         self.id = uid
         self.date = date
         self.start = start
         self.duration = duration
         self.title = title
         self.language = language
-        self.guid = guid or uuid4()
+        self.guid = guid or uuid(uid, title)
         self.slug = slug
         self.rec_license = rec_license
         self.rec_optout = rec_optout
@@ -22,7 +22,8 @@ class Event:
         self.abstract = abstract
         self.description = description
         self.logo = logo
-        self.persons = persons or dict()  # TODO: should be mandatory
+        assert persons
+        self.persons = persons
         self.links = links or dict()
         self.attachments = attachments or dict()
         self.download_url = download_url
@@ -47,7 +48,7 @@ class Event:
         xml.tag("slug", self.slug)
         xml.enter("recording")
         xml.tag("license", self.rec_license)
-        xml.tag("optout", str(self.rec_optout))
+        xml.tag("optout", str(self.rec_optout).lower())
         xml.exit("recording")
         xml.tag("title", self.title)
         xml.tag("language", self.language)

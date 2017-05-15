@@ -1,4 +1,5 @@
 from .event import Event
+from ..xml import XmlSerializer
 
 
 class Room:
@@ -14,4 +15,14 @@ class Room:
         return min(event.start for event in self.events.values())
 
     def get_end(self):
-        return max(event.end for event in self.events.values())
+        return max(event.start + event.duration for event in self.events.values())
+
+    def to_xml(self, serializer=None):
+        xml = serializer or XmlSerializer()
+        xml.enter("room", name=self.name)
+        for event in self.events.values():
+            event.to_xml(xml)
+        xml.exit("room")
+
+        if not serializer:
+            return xml.buffer
