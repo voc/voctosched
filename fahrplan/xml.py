@@ -11,7 +11,7 @@ class XmlSerializer:
         start = self.indent() + f"<{tag}"
         for k, v in kwargs.items():
             start += f' {k}="{v}"'
-        if inner is None or inner == "":
+        if not inner:
             self.buffer += start + " />\n"
         else:
             self.buffer += start + f">{inner}</{tag}>\n"

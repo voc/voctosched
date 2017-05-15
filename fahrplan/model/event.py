@@ -47,7 +47,7 @@ class Event:
         xml.tag("slug", self.slug)
         xml.enter("recording")
         xml.tag("license", self.rec_license)
-        xml.tag("optout", self.rec_optout)
+        xml.tag("optout", str(self.rec_optout))
         xml.exit("recording")
         xml.tag("title", self.title)
         xml.tag("language", self.language)
