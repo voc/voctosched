@@ -8,6 +8,7 @@ from .room import Room
 from ..xml import XmlSerializer
 
 
+# TODO (AK) see comments in conference.py about xml serialization
 class Schedule:
     def __init__(self, conference: Conference, days: Dict[int, Day] = None, version: str = "1.0"):
         self.conference = conference
@@ -16,6 +17,7 @@ class Schedule:
             assert len(days) == conference.days
             self.days = days
         else:
+            # TODO (AK) use {} literal
             self.days = dict()
             for i in range(conference.days):
                 index = i + 1
@@ -25,6 +27,7 @@ class Schedule:
         self.version = version
 
     def add_room(self, name: str, days=None):
+        # TODO (AK) describe the meaning of the days parameter and what is the difference between it and self.days
         for day in self.days.values():
             if not days or day.index in days:
                 day.add_room(Room(name))

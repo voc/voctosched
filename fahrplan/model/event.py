@@ -2,7 +2,9 @@ from ..uuid import uuid
 from ..xml import XmlSerializer
 
 
+# TODO (AK) see comments in conference.py about xml serialization
 class Event:
+    # TODO (AK) add type annotations
     def __init__(self, uid, date, start, duration, title, language, slug, persons, rec_license="???",
                  rec_optout=False, guid="", subtitle="", track="", event_type="", abstract="", description='',
                  logo="", links=None, attachments=None, download_url=None):
@@ -24,7 +26,9 @@ class Event:
         self.logo = logo
         assert persons
         self.persons = persons
+        # TODO (AK) use {} literal
         self.links = links or dict()
+        # TODO (AK) use {} literal
         self.attachments = attachments or dict()
         self.download_url = download_url
         self.room = None

@@ -2,6 +2,7 @@ from .event import Event
 from ..xml import XmlSerializer
 
 
+# TODO (AK) see comments in conference.py about xml serialization
 class Room:
     def __init__(self, name: str):
         self.name = name

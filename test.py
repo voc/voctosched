@@ -5,6 +5,8 @@ from datetime import date, datetime, timedelta
 from fahrplan.model import Conference, Event, Schedule
 
 
+# TODO (AK) for test cases, i would advise proper unit tests, with the nosetests runner, for details contact me directly
+
 def main():
     conference = Conference(
         title="DENOG8",
