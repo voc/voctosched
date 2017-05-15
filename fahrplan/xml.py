@@ -23,6 +23,7 @@ class XmlSerializer:
             self.buffer += start + f">{inner}</{tag}>\n"
 
     # TODO (AK) rename to open_close_tag or something similar
+    # TODO (MO) use context manager instead
     def inout(self, tag: str, **kwargs):
         start = self.indent() + f"<{tag}"
         # TODO (AK) rename k and v so that their names represent their actual meanings
@@ -50,3 +51,5 @@ class XmlSerializer:
             for k, v in content.items():
                 self.tag(tag, v, **{prop: k})
             self.exit(tag + "s")
+
+    # TODO (MO) implement from_object
