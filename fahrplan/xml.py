@@ -1,32 +1,40 @@
-def ind(level: int):
-    return "  " * level
+class XmlSerializer:
+    def __init__(self, indent="  "):
+        self.indent_style = indent
+        self.buffer = ""
+        self.level = 0
 
+    def indent(self):
+        return self.indent_style * self.level
 
-def xml(tag: str, inner, level: int = 0, **kwargs):
-    start = ind(level) + f"<{tag}"
-    for k, v in kwargs.items():
-        start += f' {k}="{v}"'
-    if inner is None or inner == "":
-        return start + " />\n"
-    return start + f">{inner}</{tag}>\n"
+    def tag(self, tag: str, inner, **kwargs):
+        start = self.indent() + f"<{tag}"
+        for k, v in kwargs.items():
+            start += f' {k}="{v}"'
+        if inner is None or inner == "":
+            self.buffer += start + " />\n"
+        else:
+            self.buffer += start + f">{inner}</{tag}>\n"
 
+    def inout(self, tag: str, **kwargs):
+        start = self.indent() + f"<{tag}"
+        for k, v in kwargs.items():
+            start += f' {k}="{v}"'
+        self.buffer += start + ">\n"
 
-def xml_open(tag: str, level: int = 0, **kwargs):
-    start = ind(level) + f"<{tag}"
-    for k, v in kwargs.items():
-        start += f' {k}="{v}"'
-    return start + ">\n"
+    def enter(self, tag: str, **kwargs):
+        self.inout(tag, **kwargs)
+        self.level += 1
 
+    def exit(self, tag: str):
+        self.level -= 1
+        self.inout(f"/{tag}")
 
-def xml_close(tag: str, level: int = 0):
-    return xml_open(f"/{tag}", level)
-
-
-def xml_dict(tag: str, content, prop, level: int = 0):
-    if not content:
-        return xml(tag + "s", None, level)
-    result = xml_open(tag + "s", level)
-    for k, v in content.items():
-        result += xml(tag, v, level + 1, **{prop: k})
-    result += xml_close(tag + "s", level)
-    return result
+    def dict(self, tag: str, content, prop):
+        if not content:
+            self.tag(tag + "s", None)
+        else:
+            self.enter(tag + "s")
+            for k, v in content.items():
+                self.tag(tag, v, **{prop: k})
+            self.exit(tag + "s")

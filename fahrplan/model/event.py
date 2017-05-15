@@ -1,5 +1,5 @@
 from uuid import uuid4
-from fahrplan.xml import xml, xml_open, xml_close, xml_dict
+from fahrplan.xml import XmlSerializer
 
 
 class Event:
@@ -37,31 +37,31 @@ class Event:
     def add_attachment(self, href, title):
         self.attachments[href] = title
 
-    def to_xml(self, level=3):
-        # TODO: this is ugly, maybe XmlSerializer class?
-        result = ""
-        result += xml_open("event", level, guid=self.guid, id=self.id)
-        result += xml("date", f"{self.date:%Y-%m-%dT%H:%M:%S}", level+1)
-        result += xml("start", f"{self.start:%H:%M}", level+1)
-        result += xml("duration", f"{str(self.duration)[:-3]}", level+1)
-        result += xml("room", self.room, level+1)
-        result += xml("slug", self.slug, level+1)
-        result += xml_open("recording", level+1)
-        result += xml("license", self.rec_license, level+2)
-        result += xml("optout", self.rec_optout, level+2)
-        result += xml_close("recording", level+1)
-        result += xml("title", self.title, level+1)
-        result += xml("language", self.language, level+1)
-        result += xml("subtitle", self.subtitle, level+1)
-        result += xml("track", self.track, level+1)
-        result += xml("type", self.type, level+1)
-        result += xml("abstract", self.abstract, level+1)
-        result += xml("description", self.description, level+1)
-        result += xml("logo", self.logo, level+1)
-        result += xml_dict("person", self.persons, "id", level+1)
-        result += xml_dict("link", self.links, "href", level+1)
-        result += xml_dict("attachment", self.attachments, "href", level+1)
-        result += xml("download_url", self.download_url, level+1)
-        result += xml_close("event", level)
+    def to_xml(self, serializer=None):
+        xml = serializer or XmlSerializer()
+        xml.enter("event", guid=self.guid, id=self.id)
+        xml.tag("date", f"{self.date:%Y-%m-%dT%H:%M:%S}")
+        xml.tag("start", f"{self.start:%H:%M}")
+        xml.tag("duration", f"{str(self.duration)[:-3]}")
+        xml.tag("room", self.room)
+        xml.tag("slug", self.slug)
+        xml.enter("recording")
+        xml.tag("license", self.rec_license)
+        xml.tag("optout", self.rec_optout)
+        xml.exit("recording")
+        xml.tag("title", self.title)
+        xml.tag("language", self.language)
+        xml.tag("subtitle", self.subtitle)
+        xml.tag("track", self.track)
+        xml.tag("type", self.type)
+        xml.tag("abstract", self.abstract)
+        xml.tag("description", self.description)
+        xml.tag("logo", self.logo)
+        xml.dict("person", self.persons, "id")
+        xml.dict("link", self.links, "href")
+        xml.dict("attachment", self.attachments, "href")
+        xml.tag("download_url", self.download_url)
+        xml.exit("event")
 
-        return result
+        if not serializer:
+            return xml.buffer
