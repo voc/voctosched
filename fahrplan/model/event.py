@@ -1,5 +1,5 @@
 from ..uuid import uuid
-from fahrplan.xml import XmlSerializer
+from ..xml import XmlSerializer
 
 
 class Event:

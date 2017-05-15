@@ -1,2 +1,2 @@
-def generate_slug():
-    raise NotImplementedError()
+class SlugGenerator:
+    pass

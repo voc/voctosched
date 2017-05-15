@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 
 from datetime import date, datetime, timedelta
-from fahrplan.model.conference import Conference
-from fahrplan.model.event import Event
-from fahrplan.model.schedule import Schedule
+
+from fahrplan.model import Conference, Event, Schedule
 
 
 def main():
