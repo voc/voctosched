@@ -1,9 +1,8 @@
+from fahrplan.xml import XmlWriter, XmlSerializable
 from .event import Event
-from ..xml import XmlSerializer
 
 
-# TODO (AK) see comments in conference.py about xml serialization
-class Room:
+class Room(XmlSerializable):
     def __init__(self, name: str):
         self.name = name
         self.events = dict()
@@ -13,17 +12,12 @@ class Room:
         self.events[event.id] = event
 
     def get_start(self):
-        return min(event.start for event in self.events.values())
+        return min(event.date for event in self.events.values())
 
     def get_end(self):
-        return max(event.start + event.duration for event in self.events.values())
+        return max(event.date + event.duration for event in self.events.values())
 
-    def to_xml(self, serializer=None):
-        xml = serializer or XmlSerializer()
-        xml.enter("room", name=self.name)
-        for event in self.events.values():
-            event.to_xml(xml)
-        xml.exit("room")
-
-        if not serializer:
-            return xml.buffer
+    def append_xml(self, xml: XmlWriter):
+        with xml.context("room", name=self.name):
+            for event in self.events.values():
+                xml.append_object(event)
