@@ -1,5 +1,5 @@
 import datetime as dt
-from typing import Dict
+from typing import Dict, Union, Callable
 
 from fahrplan.datetime import format_datetime, format_time, format_duration
 from fahrplan.exception import FahrplanError
@@ -11,10 +11,10 @@ class Event(XmlSerializable):
     # TODO (MO) decide about reasonable default license or make mandatory
     # TODO (MO) maybe use UUID instances instead of strings? probably inconvenient
     def __init__(self, uid: int, date: dt.datetime, start: dt.time, duration: dt.timedelta, title: str, language: str,
-                 slug: str, persons: Dict[int, str], recording_license: str = "???", recording_optout: bool = False,
-                 guid: str = "", subtitle: str = "", track: str = "", event_type: str = "", abstract: str = "",
-                 description: str = '', logo: str = "", download_url: str = "", links: Dict[str, str] = None,
-                 attachments: Dict[str, str] = None):
+                 slug: Union[str, Callable], persons: Dict[int, str], recording_license: str = "???",
+                 recording_optout: bool = False, guid: str = "", subtitle: str = "", track: str = "",
+                 event_type: str = "", abstract: str = "", description: str = '', logo: str = "",
+                 download_url: str = "", links: Dict[str, str] = None, attachments: Dict[str, str] = None):
         self.id = uid
         self.date = date
         self.start = start
@@ -22,7 +22,6 @@ class Event(XmlSerializable):
         self.title = title
         self.language = language
         self.guid = guid or uuid(uid, title)
-        self.slug = slug
         self.rec_license = recording_license
         self.rec_optout = recording_optout
         self.subtitle = subtitle
@@ -38,6 +37,10 @@ class Event(XmlSerializable):
         self.attachments = attachments or {}
         self.download_url = download_url
         self.room = None
+        if callable(slug):
+            self.slug = slug(self)
+        else:
+            self.slug = slug
 
     def add_person(self, uid: int, name: str):
         self.persons[uid] = name
