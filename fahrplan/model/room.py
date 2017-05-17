@@ -12,10 +12,18 @@ class Room(XmlSerializable):
         self.events[event.id] = event
 
     def get_start(self):
-        return min(event.date for event in self.events.values())
+        try:
+            return min(event.date for event in self.events.values())
+        except ValueError:
+            # No events assigned
+            return None
 
     def get_end(self):
-        return max(event.date + event.duration for event in self.events.values())
+        try:
+            return max(event.date + event.duration for event in self.events.values())
+        except ValueError:
+            # No events assigned
+            return None
 
     def append_xml(self, xml: XmlWriter):
         with xml.context("room", name=self.name):

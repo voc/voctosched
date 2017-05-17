@@ -1,5 +1,6 @@
 import datetime as dt
 
+from .exception import FahrplanError
 
 DATETIME_FORMAT = "%Y-%m-%dT%H:%M:%S"
 TIME_FORMAT = "%H:%M"
@@ -24,7 +25,7 @@ def parse_time(time_string: str):
         minutes = int(minutes, 10)
         return dt.time(hours, minutes)
     except ValueError:
-        raise ValueError(f"{time_string} is not in required format %H:%M")
+        raise FahrplanError(f"{time_string} is not in required format %H:%M")
 
 
 def format_date(date: dt.date):
@@ -37,7 +38,7 @@ def parse_date(date_string: str):
         return dt.date(*items)
 
     except (TypeError, ValueError):
-        raise ValueError(f"{date_string} is not a valid date literal")
+        raise FahrplanError(f"{date_string} is not in required format %Y-%m-%d")
 
 
 def format_duration(duration: dt.timedelta):
@@ -52,4 +53,4 @@ def parse_duration(duration_string: str):
         minutes = int(minutes, 10)
         return dt.timedelta(hours=hours, minutes=minutes)
     except ValueError:
-        raise ValueError(f"{duration_string} is not in required format %H:%M")
+        raise FahrplanError(f"{duration_string} is not in required format %H:%M")

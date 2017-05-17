@@ -2,13 +2,14 @@ import datetime as dt
 from typing import Dict
 
 from fahrplan.datetime import format_datetime, format_time, format_duration
+from fahrplan.exception import FahrplanError
 from fahrplan.xml import XmlWriter, XmlSerializable
 from ..uuid import uuid
 
 
 class Event(XmlSerializable):
     # TODO (MO) decide about reasonable default license or make mandatory
-    # TODO (MO) maybe use UUID instances instead of strings
+    # TODO (MO) maybe use UUID instances instead of strings? probably inconvenient
     def __init__(self, uid: int, date: dt.datetime, start: dt.time, duration: dt.timedelta, title: str, language: str,
                  slug: str, persons: Dict[int, str], recording_license: str = "???", recording_optout: bool = False,
                  guid: str = "", subtitle: str = "", track: str = "", event_type: str = "", abstract: str = "",
@@ -30,8 +31,8 @@ class Event(XmlSerializable):
         self.abstract = abstract
         self.description = description
         self.logo = logo
-        # TODO (MO) throw reasonable exception
-        assert persons
+        if not persons:
+            raise FahrplanError("Excepted at least one person for event creation, none are given.")
         self.persons = persons
         self.links = links or {}
         self.attachments = attachments or {}

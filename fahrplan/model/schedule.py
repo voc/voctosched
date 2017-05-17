@@ -16,6 +16,7 @@ class Schedule(XmlSerializable):
             assert len(days) == conference.day_count
             self.days = days
         else:
+            # TODO (MO) document automatic day generation
             self.days = {}
             for i in range(conference.day_count):
                 index = i + 1
@@ -23,6 +24,14 @@ class Schedule(XmlSerializable):
                 self.days[index] = Day(index=index, date=date)
 
         self.version = version
+
+    def add_day(self, day: Day):
+        """
+        Add a day to the schedule. Beware this will not have rooms added before.
+        :return: None
+        """
+        self.days[day.index] = day
+        self.conference.day_count += 1
 
     def add_room(self, name: str, day_filter: List[int] = None):
         """
