@@ -27,8 +27,14 @@ class XmlWriter:
         self.append_indentation()
         if inner is None or str(inner) == "":
             self.buffer += f"<{self.format_properties(tag, properties)} />\n"
-        else:
+        elif "\n" not in str(inner):
             self.buffer += f"<{self.format_properties(tag, properties)}>{inner}</{tag}>\n"
+        else:
+            self.buffer += f"<{self.format_properties(tag, properties)}>"
+            self.buffer += f"\n{inner}\n"
+            self.append_indentation()
+            self.buffer += f"</{tag}>\n"
+
         return self
 
     def context(self, tag: str, **properties):
