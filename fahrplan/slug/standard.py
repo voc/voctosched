@@ -1,7 +1,8 @@
 import re
 from string import ascii_letters, digits
 
-from fahrplan.model import Conference, Event
+from fahrplan.model.conference import Conference
+from fahrplan.model.event import Event
 
 
 class StandardSlugGenerator:
