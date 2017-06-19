@@ -9,6 +9,8 @@ from fahrplan.slug import StandardSlugGenerator
 
 class ChaosradioContentHandler(ContentHandler):
     def __init__(self, config: ConfigParser):
+        super().__init__()
+
         self.path = []
         self.room_name = config["room"]["name"]
         title = config["conference"]["title"]
