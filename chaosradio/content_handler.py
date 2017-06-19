@@ -32,7 +32,7 @@ class ChaosradioContentHandler(ContentHandler):
         self.event_links = {}
         self.event_download_url = ""
         self.event_persons = {}
-        self.event_description = ""
+        self.event_description = []
 
     def get_schedule(self):
         return self.schedule
@@ -49,7 +49,7 @@ class ChaosradioContentHandler(ContentHandler):
         self.event_links = {}
         self.event_download_url = ""
         self.event_persons = {}
-        self.event_description = ""
+        self.event_description = []
 
     def endDocument(self):
         assert self.event_id
@@ -64,12 +64,13 @@ class ChaosradioContentHandler(ContentHandler):
             date=self.event_date.date()
         ))
         self.schedule.add_room(self.room_name, [self.event_id])
-        # TODO (MO) license?
+        description = "\n".join(self.event_description)
+        # print(repr(self.event_description))
         self.schedule.add_event(day=self.event_id, room=self.room_name, event=Event(
             uid=self.event_id, date=self.event_date, start=self.event_start,
             duration=self.event_duration, title=self.event_title, language="de",
-            slug=self.slug, persons=self.event_persons, recording_license="???",
-            subtitle=self.event_subtitle, description=self.event_description,
+            slug=self.slug, persons=self.event_persons, recording_license="",
+            subtitle=self.event_subtitle, description=description,
             download_url=self.event_download_url, links=self.event_links
         ))
 
@@ -81,7 +82,7 @@ class ChaosradioContentHandler(ContentHandler):
         assert self.path.pop() == name
         if self.path[:2] == ["episode", "description"]:
             if name == "p":
-                self.event_description += "\n"
+                self.event_description[-1] = self.event_description[-1].strip()
 
     def characters(self, content):
         if not content.strip():
@@ -95,19 +96,19 @@ class ChaosradioContentHandler(ContentHandler):
         elif self.path == ["episode", "date"]:
             if attrs["type"] == "broadcast":
                 self.event_date = datetime(
-                    year=int(attrs["year"]),
-                    month=int(attrs["month"]),
-                    day=int(attrs["day"]),
-                    hour=int(attrs["hour"]),
-                    minute=int(attrs["minute"])
+                    year=int(attrs["year"], 10),
+                    month=int(attrs["month"], 10),
+                    day=int(attrs["day"], 10),
+                    hour=int(attrs["hour"], 10),
+                    minute=int(attrs["minute"], 10)
                 )
                 self.event_start = time(
-                    hour=int(attrs["hour"]),
-                    minute=int(attrs["minute"])
+                    hour=int(attrs["hour"], 10),
+                    minute=int(attrs["minute"], 10)
                 )
                 self.event_duration = timedelta(
-                    hours=int(attrs["hours"]),
-                    minutes=int(attrs["minutes"])
+                    hours=int(attrs["hours"], 10),
+                    minutes=int(attrs["minutes"], 10)
                 )
 
         elif self.path == ["episode", "link"]:
@@ -122,6 +123,8 @@ class ChaosradioContentHandler(ContentHandler):
             if self.path[-1] == "a":
                 self.current_link = attrs["href"]
                 self.event_links[self.current_link] = ""
+            elif self.path[-1] == "p":
+                self.event_description.append("")
 
     def dispatch_content(self, content):
         if self.path == ["episode", "title"]:
@@ -142,5 +145,5 @@ class ChaosradioContentHandler(ContentHandler):
         elif self.path[:2] == ["episode", "description"]:
             if "a" in self.path:
                 self.event_links[self.current_link] += content
-            self.event_description += content
+            self.event_description[-1] += content
 
