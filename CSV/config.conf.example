@@ -1,0 +1,9 @@
+[general]
+# valid values are: warning, error, info, debug
+debug = debug
+
+[source]
+# type can be file or URL
+type = file
+# url or path
+source = /home/derpeter/
