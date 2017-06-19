@@ -22,12 +22,12 @@ import sys
 import csv
 import urllib.request
 
-from fahrplan.datetime import parse_date, parse_datetime, parse_duration, parse_time
-from fahrplan.model import Conference, Event, Schedule
-from fahrplan.slug import StandardSlugGenerator
+#from fahrplan.datetime import parse_date, parse_datetime, parse_duration, parse_time
+#from fahrplan.model import Conference, Event, Schedule
+#from fahrplan.slug import StandardSlugGenerator
 
 
-class importer:
+class Importer:
     """
     This class reads an CSV file and creates a schedule object from it.
     """
@@ -68,15 +68,19 @@ class importer:
         elif level == 'debug':
             self.logger.setLevel(logging.DEBUG)
 
-        self.source = self.config.get('source', 'type')
+        self.type = self.config.get('source', 'type')
         self.source = self.config.get('source', 'source')
 
-        if self.source is 'file':
+        logging.debug('reading ' + str(self.source) + ' from ' + self.type)
+
+        if self.type == 'file':
+            logging.info('reading CSV from file')
+            self.openCSV()
             self.readCSV()
-        elif self.source is 'URL':
+        elif self.type == 'URL':
             self.downloadCSV()
         else:
-            logging.error(str(self.source) + ' is not a valid source type')
+            logging.error(str(self.type) + ' is not a valid source type')
 
 
     def readCSV(self):
@@ -86,11 +90,14 @@ class importer:
         """
 
     def downloadCSV(self):
+        pass
+
+    def openCSV(self):
         with open(self.source, newline='') as csvfile:
-            reader = csv.reader(csvfile, delimiter=',', newline='')
+            reader = csv.reader(csvfile, delimiter=',')
             for row in reader:
                 print(', '.join(row))
 
 
-    def openCSV(self):
-        pass
+if __name__ == '__main__':
+    importer = Importer()
