@@ -27,6 +27,7 @@ class Event(XmlSerializable):
         self.subtitle = subtitle
         self.track = track
         self.type = event_type
+        # TODO (MO) proper indentation for multi-line text blobs
         self.abstract = abstract
         self.description = description
         self.logo = logo
@@ -72,4 +73,4 @@ class Event(XmlSerializable):
             xml.append_dict("person", self.persons, "id")
             xml.append_dict("link", self.links, "href")
             xml.append_dict("attachment", self.attachments, "href")
-            xml.tag("download_url", self.download_url)
+            # xml.tag("download_url", self.download_url)
