@@ -1,6 +1,7 @@
 from datetime import date as _date, timedelta
 from typing import Dict, List
 
+from fahrplan.exception import FahrplanError
 from fahrplan.xml import XmlWriter, XmlSerializable
 from .conference import Conference
 from .day import Day
@@ -11,12 +12,16 @@ from .room import Room
 class Schedule(XmlSerializable):
     def __init__(self, conference: Conference, days: Dict[int, Day] = None, version: str = "1.0"):
         self.conference = conference
+        self.conference.schedule = self
 
         if days:
             assert len(days) == conference.day_count
             self.days = days
         else:
             # TODO (MO) document automatic day generation
+            if conference.day_count and not conference.start:
+                raise FahrplanError("conference.start is not set, "
+                                    "cannot automatically create days.")
             self.days = {}
             for i in range(conference.day_count):
                 index = i + 1
@@ -27,7 +32,7 @@ class Schedule(XmlSerializable):
 
     def add_day(self, day: Day):
         """
-        Add a day to the schedule. Beware this will not have rooms added before.
+        Add a day to the schedule. Beware this day will not have rooms added before.
         :return: None
         """
         self.days[day.index] = day

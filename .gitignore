@@ -101,3 +101,6 @@ ENV/
 
 # IDE stuff
 .idea/
+
+# vim stuff
+*.swp
