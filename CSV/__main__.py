@@ -22,12 +22,12 @@ import sys
 import csv
 import urllib.request
 
-#from fahrplan.datetime import parse_date, parse_datetime, parse_duration, parse_time
+from fahrplan.datetime import parse_date, parse_datetime, parse_duration, parse_time
 #from fahrplan.model import Conference, Event, Schedule
 #from fahrplan.slug import StandardSlugGenerator
 
 
-class Importer:
+class main:
     """
     This class reads an CSV file and creates a schedule object from it.
     """
@@ -94,10 +94,10 @@ class Importer:
 
     def openCSV(self):
         with open(self.source, newline='') as csvfile:
-            reader = csv.reader(csvfile, delimiter=',')
+            reader = csv.DictReader(csvfile, delimiter=',')
             for row in reader:
-                print(', '.join(row))
+                print(row['Title'])
 
 
 if __name__ == '__main__':
-    importer = Importer()
+    main()
