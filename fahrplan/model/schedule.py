@@ -38,8 +38,6 @@ class Schedule(XmlSerializable):
         self.days[day.index] = day
         self.conference.day_count += 1
 
-
-
     def add_room(self, name: str, day_filter: List[int] = None):
         """
         Adds a room to the days given in day_filter, or all days.
