@@ -77,9 +77,23 @@ class main:
 
         logging.debug('reading ' + str(self.source) + ' from ' + self.type)
 
+        # create the conference object
+        self.conference = Conference(
+            title=self.config.get('conference', 'title'),
+            acronym=self.config.get('conference', 'acronym'),
+            day_count=int(self.config.get('conference', 'day_count')),
+            start=parse_date(self.config.get('conference', 'start')),
+            end=parse_date(self.config.get('conference', 'end')),
+            time_slot_duration=parse_duration(self.config.get('conference', 'time_slot_duration'))
+        )
+
+        self.slug = StandardSlugGenerator(self.conference)
+        self.schedule = Schedule(conference=self.conference)
+
+        # decide where to get the CSV file
         if self.type == 'file':
             logging.info('reading CSV from file')
-            self.openCSV()
+            self.generate_schedule()
             self.readCSV()
         elif self.type == 'URL':
             self.downloadCSV()
@@ -96,11 +110,23 @@ class main:
     def downloadCSV(self):
         pass
 
-    def openCSV(self):
+    def generate_schedule(self):
+
         with open(self.source, newline='') as csvfile:
             reader = csv.DictReader(csvfile, delimiter=',')
             for row in reader:
-                print(row['Title'])
+                self.schedule.add_room(row['Room'])
+                self.schedule.add_event(row['Day'], row['Room'], Event(
+                    uid=row['ID'],
+                    date=parse_datetime(row['Date'] + 'T' + row['Start'] + ':00'),
+                    start=parse_time(row['Start']),
+                    duration=parse_duration(row['Duration']),
+                    slug=self.slug,
+                    title=row['Title'],
+                    language=row['Language'],
+                    persons={row['SpeakerID']: row['Speaker']}
+                ))
+        print(str(self.conference))
 
 
 if __name__ == '__main__':
