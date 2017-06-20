@@ -20,14 +20,11 @@ import logging
 import os
 import sys
 import csv
-import urllib.request
 
 from fahrplan.datetime import parse_date, parse_datetime, parse_duration, parse_time
-import fahrplan.model.conference
 from fahrplan.model.conference import Conference
 from fahrplan.model.event import Event
 from fahrplan.model.schedule import Schedule
-#from fahrplan.model import Conference, Event, Schedule
 from fahrplan.slug.standard import StandardSlugGenerator
 
 
@@ -133,7 +130,7 @@ class main:
                     language=row['Language'],
                     persons={row['SpeakerID']: row['Speaker']}
                 ))
-        print(str(self.conference))
+        logging.debug(self.schedule.to_xml())
 
 
 if __name__ == '__main__':
