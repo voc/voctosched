@@ -2,8 +2,27 @@
 # valid values are: warning, error, info, debug
 debug = debug
 
+[general]
+# valid values are: warning, error, info, debug
+debug = debug
+
+[conference]
+title = Linuxtag 2011
+acronym = linuxtag11
+day_count = 3
+start = 2011-5-11
+end = 2015-5-13
+time_slot_duration = 00:30
+
+
 [source]
 # type can be file or URL
 type = file
 # url or path
-source = /home/derpeter/
+source = /home/derpeter/voc/linuxtag 2011 - Sheet1.csv
+
+[source]
+# type can be file or URL
+type = file
+# url or path
+source = /foo/bar/baz.csv
