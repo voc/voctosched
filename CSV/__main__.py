@@ -87,6 +87,7 @@ class main:
             time_slot_duration=parse_duration(self.config.get('conference', 'time_slot_duration'))
         )
 
+        print(self.conference.get_end())
         self.slug = StandardSlugGenerator(self.conference)
         self.schedule = Schedule(conference=self.conference)
 
@@ -94,29 +95,35 @@ class main:
         if self.type == 'file':
             logging.info('reading CSV from file')
             self.generate_schedule()
-            self.readCSV()
         elif self.type == 'URL':
             self.downloadCSV()
         else:
             logging.error(str(self.type) + ' is not a valid source type')
-
 
     def readCSV(self):
         """
         read the given CSV
         :return:
         """
+        pass
 
     def downloadCSV(self):
+        """
+        download a CSV file from an URL
+        :return:
+        """
         pass
 
     def generate_schedule(self):
-
+        """
+        Fill the schedule object with the events from the CSV
+        :return:
+        """
         with open(self.source, newline='') as csvfile:
             reader = csv.DictReader(csvfile, delimiter=',')
             for row in reader:
                 self.schedule.add_room(row['Room'])
-                self.schedule.add_event(row['Day'], row['Room'], Event(
+                self.schedule.add_event(int(row['Day']), row['Room'], Event(
                     uid=row['ID'],
                     date=parse_datetime(row['Date'] + 'T' + row['Start'] + ':00'),
                     start=parse_time(row['Start']),
