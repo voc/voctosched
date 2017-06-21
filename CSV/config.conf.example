@@ -1,28 +1,20 @@
 [general]
 # valid values are: warning, error, info, debug
 debug = debug
-
-[general]
-# valid values are: warning, error, info, debug
-debug = debug
+# output file
+output=output.xml
 
 [conference]
-title = Linuxtag 2011
-acronym = linuxtag11
+title = myConf 2023
+acronym = myConf23
 day_count = 3
-start = 2011-5-11
-end = 2015-5-13
-time_slot_duration = 00:30
-
-
-[source]
-# type can be file or URL
-type = file
-# url or path
-source = /home/derpeter/voc/linuxtag 2011 - Sheet1.csv
+start = 2023-5-11
+end = 2023-5-13
+time_slot_duration = 00:23
+license = Creative Commons Attribution 4.0 International (http://creativecommons.org/licenses/by/4.0/)
 
 [source]
 # type can be file or URL
 type = file
 # url or path
-source = /foo/bar/baz.csv
+source = input.csv
