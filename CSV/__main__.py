@@ -85,9 +85,9 @@ class main:
             time_slot_duration=parse_duration(self.config.get('conference', 'time_slot_duration'))
         )
 
-        print(self.conference.get_end())
         self.slug = StandardSlugGenerator(self.conference)
         self.schedule = Schedule(conference=self.conference)
+        self.license = self.config.get('conference', 'license')
 
         # decide where to get the CSV file
         if self.type == 'file':
@@ -133,7 +133,8 @@ class main:
                     abstract=row.get('Abstract',''),
                     language=row['Language'],
                     persons={row['SpeakerID']: row['Speaker']},
-                    download_url=row.get('File URL','')
+                    download_url=row.get('File URL',''),
+                    recording_license=self.license
                 ))
         logging.debug(self.schedule.to_xml())
 
