@@ -71,6 +71,7 @@ class main:
 
         self.type = self.config.get('source', 'type')
         self.source = self.config.get('source', 'source')
+        self.output = self.config.get('general', 'output')
 
         logging.debug('reading ' + str(self.source) + ' from ' + self.type)
 
@@ -92,6 +93,7 @@ class main:
         if self.type == 'file':
             logging.info('reading CSV from file')
             self.generate_schedule()
+            self.write_schedule()
         elif self.type == 'URL':
             self.downloadCSV()
         else:
@@ -127,11 +129,21 @@ class main:
                     duration=parse_duration(row['Duration']),
                     slug=self.slug,
                     title=row['Title'],
+                    description=row.get('Description',''),
+                    abstract=row.get('Abstract',''),
                     language=row['Language'],
-                    persons={row['SpeakerID']: row['Speaker']}
+                    persons={row['SpeakerID']: row['Speaker']},
+                    download_url=row.get('File URL','')
                 ))
         logging.debug(self.schedule.to_xml())
 
+    def write_schedule(self):
+        """
+        write the schedule to a file
+        :return:
+        """
+        with open(self.output, 'w', newline='') as outputfile:
+            outputfile.write(self.schedule.to_xml())
 
 if __name__ == '__main__':
     main()
