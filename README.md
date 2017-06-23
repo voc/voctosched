@@ -1,12 +1,12 @@
 # schedule-ng
-Scripts for converting various formats to frab-style https://github.com/frab/frab fahrplan XML.
-This also may or may not be useful for users of pentabarf.
+Scripts for converting various formats to [frab](https://github.com/frab/frab)-style fahrplan XML.
+This also may or may not be useful for users of [pentabarf](https://github.com/nevs/pentabarf).
 
 This repository implements an object representation of the frab export data model.
 This can be used to build different im-/exporters or manipulators for the frab schedule export.
 
 There is also a number of application which can display the schedule on mobile devices or infoscreens.
-Some example are:
+Some examples are:
 
 * https://infobeamer.com
 * https://github.com/tuxmobil/CampFahrplan
