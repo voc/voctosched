@@ -73,4 +73,4 @@ class Event(XmlSerializable):
             xml.append_dict("person", self.persons, "id")
             xml.append_dict("link", self.links, "href")
             xml.append_dict("attachment", self.attachments, "href")
-            # xml.tag("download_url", self.download_url)
+            xml.tag("video_download_url", self.download_url)

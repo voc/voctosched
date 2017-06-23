@@ -1,0 +1,20 @@
+[general]
+# valid values are: warning, error, info, debug
+debug = debug
+# output file
+output=output.xml
+
+[conference]
+title = myConf 2023
+acronym = myConf23
+day_count = 3
+start = 2023-5-11
+end = 2023-5-13
+time_slot_duration = 00:23
+license = Creative Commons Attribution 4.0 International (http://creativecommons.org/licenses/by/4.0/)
+
+[source]
+# type can be file or URL
+type = file
+# url or path
+source = input.csv

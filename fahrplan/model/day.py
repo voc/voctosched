@@ -16,7 +16,8 @@ class Day(XmlSerializable):
         self.rooms = {}
 
     def add_room(self, room: Room):
-        self.rooms[room.name] = room
+        if room.name not in self.rooms:
+            self.rooms[room.name] = room
 
     def add_event(self, room: str, event: Event):
         self.rooms[room].add_event(event)
@@ -32,6 +33,7 @@ class Day(XmlSerializable):
 
         try:
             room_starts = [room.get_start() for room in self.rooms.values()]
+            print(start for start in room_starts if start is not None)
             return min(start for start in room_starts if start is not None)
         except ValueError:
             raise FahrplanError(f"Day {self.index} has no events, cannot infer timestamps")
