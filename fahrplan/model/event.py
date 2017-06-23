@@ -52,7 +52,7 @@ class Event(XmlSerializable):
     def add_attachment(self, href: str, title: str):
         self.attachments[href] = title
 
-    def append_xml(self, xml: XmlWriter):
+    def append_xml(self, xml: XmlWriter, extended: bool):
         with xml.context("event", guid=self.guid, id=self.id):
             xml.tag("date", format_datetime(self.date))
             xml.tag("start", format_time(self.start))
@@ -73,4 +73,5 @@ class Event(XmlSerializable):
             xml.append_dict("person", self.persons, "id")
             xml.append_dict("link", self.links, "href")
             xml.append_dict("attachment", self.attachments, "href")
-            xml.tag("video_download_url", self.download_url)
+            if extended:
+                xml.tag("video_download_url", self.download_url)

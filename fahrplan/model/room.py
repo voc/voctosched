@@ -25,7 +25,7 @@ class Room(XmlSerializable):
             # No events assigned
             return None
 
-    def append_xml(self, xml: XmlWriter):
+    def append_xml(self, xml: XmlWriter, extended: bool):
         with xml.context("room", name=self.name):
             for event in self.events.values():
-                xml.append_object(event)
+                xml.append_object(event, extended)

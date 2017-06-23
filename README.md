@@ -16,7 +16,8 @@ Some examples are:
 * CSV
 
 # Currently supported outputs
-* XML, with additional `video_download_url`
+* basic XML, frab format
+* extended XML, with additional `video_download_url` in events
 
 # Validator
 The generated XML can be validated with the c3voc validator, which can be found here https://github.com/voc/schedule/tree/master/validator

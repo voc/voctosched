@@ -48,7 +48,7 @@ class Conference(XmlSerializable):
         except ValueError:
             raise FahrplanError("No events in schedule, cannot infer dates")
 
-    def append_xml(self, xml: XmlWriter):
+    def append_xml(self, xml: XmlWriter, extended: bool):
         with xml.context("conference"):
             xml.tag("title", self.title)
             xml.tag("acronym", self.acronym)

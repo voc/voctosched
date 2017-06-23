@@ -72,6 +72,6 @@ class XmlWriter:
                     self.tag(tag, value, **{prop: name})
         return self
 
-    def append_object(self, obj: 'XmlSerializable'):
-        obj.append_xml(self)
+    def append_object(self, obj: 'XmlSerializable', extended: bool = False):
+        obj.append_xml(self, extended)
         return self
