@@ -52,6 +52,10 @@ class Schedule(XmlSerializable):
     def add_event(self, day: int, room: str, event: Event):
         self.days[day].add_event(room, event)
 
+    def merge(self, other):
+        # TODO (zuntrax) implement
+        return self
+
     def append_xml(self, xml: XmlWriter, extended: bool):
         with xml.context("schedule"):
             xml.tag("version", self.version)
