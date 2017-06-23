@@ -144,7 +144,7 @@ class main:
         :return:
         """
         with open(self.output, 'w', newline='') as outputfile:
-            outputfile.write(self.schedule.to_xml())
+            outputfile.write(self.schedule.to_xml(extended=True))
 
 if __name__ == '__main__':
     main()

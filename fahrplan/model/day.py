@@ -33,7 +33,6 @@ class Day(XmlSerializable):
 
         try:
             room_starts = [room.get_start() for room in self.rooms.values()]
-            print(start for start in room_starts if start is not None)
             return min(start for start in room_starts if start is not None)
         except ValueError:
             raise FahrplanError(f"Day {self.index} has no events, cannot infer timestamps")
@@ -53,9 +52,9 @@ class Day(XmlSerializable):
         except ValueError:
             raise FahrplanError(f"Day {self.index} has no events, cannot infer timestamps")
 
-    def append_xml(self, xml: XmlWriter):
+    def append_xml(self, xml: XmlWriter, extended: bool):
         with xml.context("day", index=self.index, date=self.date,
                          start=format_datetime(self.get_start()),
                          end=format_datetime(self.get_end())):
             for room in self.rooms.values():
-                xml.append_object(room)
+                xml.append_object(room, extended)

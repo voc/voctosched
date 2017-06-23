@@ -52,9 +52,9 @@ class Schedule(XmlSerializable):
     def add_event(self, day: int, room: str, event: Event):
         self.days[day].add_event(room, event)
 
-    def append_xml(self, xml: XmlWriter):
+    def append_xml(self, xml: XmlWriter, extended: bool):
         with xml.context("schedule"):
             xml.tag("version", self.version)
-            xml.append_object(self.conference)
+            xml.append_object(self.conference, extended)
             for day in self.days.values():
-                xml.append_object(day)
+                xml.append_object(day, extended)

@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 
 from fahrplan.datetime import parse_date, parse_datetime, parse_duration, parse_time
-from fahrplan.model import Conference, Event, Schedule
+from fahrplan.model.conference import Conference
+from fahrplan.model.event import Event
+from fahrplan.model.schedule import Schedule
 from fahrplan.slug import StandardSlugGenerator
 
 
@@ -29,7 +31,7 @@ def main():
         start=parse_time("19:00"), duration=parse_duration("00:15"),
         slug=slug, title="Closing", language="en", persons={1: "DENOG ORGA"}
     ))
-    print(schedule.to_xml())
+    print(schedule.to_xml(extended=True))
 
 
 if __name__ == "__main__":

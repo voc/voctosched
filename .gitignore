@@ -104,3 +104,11 @@ ENV/
 
 # vim stuff
 *.swp
+
+
+# data we work with
+*.conf
+*.xml
+*.csv
+*.json
+*.ics
