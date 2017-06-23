@@ -4,9 +4,11 @@ from fahrplan.model.event import Event
 from fahrplan.model.schedule import Schedule
 from fahrplan.slug import StandardSlugGenerator
 from ..base import ImportHandler
+from hacks import noexcept
 
 
 class FakeImportHandler(ImportHandler):
+    @noexcept
     def run(self):
         conference = Conference(
             title="DENOG8",

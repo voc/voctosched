@@ -9,6 +9,7 @@ from functools import reduce
 from typing import List
 
 from fahrplan.model.schedule import Schedule
+from hacks import noexcept
 from handlers.base import ImportHandler, ExportHandler
 from handlers.directory import resolve_import_handler, resolve_export_handler
 
@@ -19,6 +20,11 @@ if sys.version_info < (3, 6):
 
 
 log = logging.getLogger(__name__)
+
+
+@noexcept(log)
+def foo():
+    assert False
 
 
 def configure_logging(args):
@@ -107,6 +113,8 @@ def main():
     args = ap.parse_args()
 
     configure_logging(args)
+
+    foo()
 
     log.info(f'Using config file "{args.config.name}".')
     config = ConfigParser()
