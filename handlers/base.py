@@ -18,5 +18,5 @@ class ImportHandler(HandlerBase, metaclass=ABCMeta):
 
 class ExportHandler(HandlerBase, metaclass=ABCMeta):
     @abstractmethod
-    def run(self, schedule: Schedule) -> None:
+    def run(self, schedule: Schedule) -> bool:
         pass

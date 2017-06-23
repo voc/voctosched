@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import logging
+import sys
 
 from argparse import ArgumentParser, FileType
 from configparser import ConfigParser
@@ -50,15 +51,27 @@ def initialize_handlers(kind: str, config: ConfigParser):
         resolve = resolve_export_handler
     else:
         raise ValueError(f'Invalid handler kind "{kind}"')
-    handler_names = [name.strip() for name in config[kind]['active'].split(',')]
+    handler_names = [name.strip() for name in config[kind]['active'].strip().split(',')]
     handlers = []
     for name in handler_names:
+        if not name:
+            log.warning("Skipping empty handler name.")
+            continue
         full_name = f'{kind}:{name}'
         log.debug(f'Initializing handler "{full_name}"')
-        handler_config = config[full_name]
+        try:
+            handler_config = config[full_name]
+        except KeyError:
+            log.error(f'{kind.capitalize()} handler "{name}" configured as active, '
+                      f'but section "{full_name}" in config is missing.')
+            continue
         handler_type = handler_config["type"]
         log.debug(f'Requesting {kind} handler type "{handler_type}".')
-        handler_class = resolve(handler_type)
+        try:
+            handler_class = resolve(handler_type)
+        except KeyError:
+            log.error(f'Handler type "{handler_type}" does not exist. Skipping.')
+            continue
         handler = handler_class(full_name, handler_config)
         handlers.append(handler)
 
@@ -90,6 +103,7 @@ def main():
 
     configure_logging(args)
 
+    log.info(f'Using config file "{args.config.name}".')
     config = ConfigParser()
     config.read_file(args.config)
     log.debug('Basic initialization done.')
@@ -97,10 +111,17 @@ def main():
     import_handlers = initialize_import_handlers(config)
     imported_schedules = []
     log.info('Running import handlers')
+    if not import_handlers:
+        log.critical("No import handlers to run, aborting.")
+        sys.exit(1)
     for handler in import_handlers:
         log.info(f'Running import handler "{handler.name}".')
         imported_schedules.append(handler.run())
     log.debug('Finished running import handlers')
+
+    if not any(imported_schedules):
+        log.critical("All import handlers failed, aborting.")
+        sys.exit(1)
 
     log.info('Merging schedules.')
     final_schedule = reduce(Schedule.merge, imported_schedules)
@@ -111,11 +132,20 @@ def main():
         log.warning('Overriding conference data not implemented.')
 
     export_handlers = initialize_export_handlers(config)
+    results = []
     log.info('Running export handlers')
+    if not export_handlers:
+        log.critical("No export handlers to run, aborting.")
+        sys.exit(1)
     for handler in export_handlers:
         log.info(f'Running export handler "{handler.name}".')
-        handler.run(final_schedule)
+        result = handler.run(final_schedule)
+        results.append(result)
     log.debug('Finished running export handlers')
+
+    if not any(results):
+        log.critical("All export handlers failed, no usable output produced.")
+        sys.exit(1)
 
 
 if __name__ == '__main__':
