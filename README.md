@@ -25,5 +25,11 @@ The generated XML can be validated with the c3voc validator, which can be found 
 A quick validation can also be done with:
 
 ```
-xmllint --noout --schema https://github.com/voc/schedule/blob/master/validator/xsd/schedule.xml.xsd schedule.xml
+xmllint --noout --schema https://github.com/zuntrax/schedule-ng/blob/master/schema/basic.xsd schedule.xml
+```
+
+For our extended format, use:
+
+```
+xmllint --noout --schema https://github.com/zuntrax/schedule-ng/blob/master/schema/extended.xsd schedule.xml
 ```
