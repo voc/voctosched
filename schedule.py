@@ -29,11 +29,11 @@ def configure_logging(args):
         level = logging.DEBUG
 
     # fancy colors
-    logging.addLevelName(logging.CRITICAL, "\033[1;41m%s\033[1;0m" % logging.getLevelName(logging.CRITICAL))
-    logging.addLevelName(logging.ERROR, "\033[1;31m%s\033[1;0m" % logging.getLevelName(logging.ERROR))
-    logging.addLevelName(logging.WARNING, "\033[1;33m%s\033[1;0m" % logging.getLevelName(logging.WARNING))
-    logging.addLevelName(logging.INFO, "\033[1;32m%s\033[1;0m" % logging.getLevelName(logging.INFO))
-    logging.addLevelName(logging.DEBUG, "\033[1;34m%s\033[1;0m" % logging.getLevelName(logging.DEBUG))
+    logging.addLevelName(logging.CRITICAL, '\033[1;41m%s\033[1;0m' % logging.getLevelName(logging.CRITICAL))
+    logging.addLevelName(logging.ERROR, '\033[1;31m%s\033[1;0m' % logging.getLevelName(logging.ERROR))
+    logging.addLevelName(logging.WARNING, '\033[1;33m%s\033[1;0m' % logging.getLevelName(logging.WARNING))
+    logging.addLevelName(logging.INFO, '\033[1;32m%s\033[1;0m' % logging.getLevelName(logging.INFO))
+    logging.addLevelName(logging.DEBUG, '\033[1;34m%s\033[1;0m' % logging.getLevelName(logging.DEBUG))
 
     if args.debug:
         log_format = '%(asctime)s - %(name)s - %(levelname)s {%(filename)s:%(lineno)d} %(message)s'
@@ -44,60 +44,79 @@ def configure_logging(args):
 
 
 def initialize_handlers(kind: str, config: ConfigParser):
-    if kind == "import":
+    if kind == 'import':
         resolve = resolve_import_handler
-    elif kind == "export":
+    elif kind == 'export':
         resolve = resolve_export_handler
     else:
         raise ValueError(f'Invalid handler kind "{kind}"')
-    handler_names = [name.strip() for name in config[kind]["active"].split(",")]
+    handler_names = [name.strip() for name in config[kind]['active'].split(',')]
     handlers = []
     for name in handler_names:
-        handler_config = config[f"{kind}:{name}"]
+        full_name = f'{kind}:{name}'
+        log.debug(f'Initializing handler "{full_name}"')
+        handler_config = config[full_name]
         handler_type = handler_config["type"]
+        log.debug(f'Requesting {kind} handler type "{handler_type}".')
         handler_class = resolve(handler_type)
-        handler = handler_class(name, handler_config)
+        handler = handler_class(full_name, handler_config)
         handlers.append(handler)
 
     return handlers
 
 
 def initialize_import_handlers(config: ConfigParser) -> List[ImportHandler]:
-    return initialize_handlers("import", config)
+    log.info('Initializing import handlers.')
+    handlers = initialize_handlers("import", config)
+    log.debug('Finished initializing import handlers.')
+    return handlers
 
 
 def initialize_export_handlers(config: ConfigParser) -> List[ExportHandler]:
-    return initialize_handlers("export", config)
+    log.info('Initializing export handlers.')
+    handlers = initialize_handlers("export", config)
+    log.debug('Finished initializing export handlers.')
+    return handlers
 
 
 def main():
     ap = ArgumentParser()
-    ap.add_argument("--verbose", "-v", action="count")
-    ap.add_argument("--quiet", "-q", action="count")
-    ap.add_argument("--config", "-c", nargs="?", type=FileType('r'), default="./config.ini")
-    ap.add_argument("--logfile", "-l")
-    ap.add_argument("--debug", "-d", action="store_true")
+    ap.add_argument('--verbose', '-v', action='count')
+    ap.add_argument('--quiet', '-q', action='count')
+    ap.add_argument('--config', '-c', nargs='?', type=FileType('r'), default='./config.ini')
+    ap.add_argument('--logfile', '-l')
+    ap.add_argument('--debug', '-d', action='store_true')
     args = ap.parse_args()
 
     configure_logging(args)
 
     config = ConfigParser()
     config.read_file(args.config)
+    log.debug('Basic initialization done.')
 
     import_handlers = initialize_import_handlers(config)
-    export_handlers = initialize_export_handlers(config)
-
     imported_schedules = []
+    log.info('Running import handlers')
     for handler in import_handlers:
+        log.info(f'Running import handler "{handler.name}".')
         imported_schedules.append(handler.run())
+    log.debug('Finished running import handlers')
 
+    log.info('Merging schedules.')
     final_schedule = reduce(Schedule.merge, imported_schedules)
+    log.debug('Finished merging schedules.')
 
     # TODO (zuntrax) use config["conference"]
+    if 'conference' in config:
+        log.warning('Overriding conference data not implemented.')
 
+    export_handlers = initialize_export_handlers(config)
+    log.info('Running export handlers')
     for handler in export_handlers:
+        log.info(f'Running export handler "{handler.name}".')
         handler.run(final_schedule)
+    log.debug('Finished running export handlers')
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

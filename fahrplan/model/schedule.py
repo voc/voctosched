@@ -1,3 +1,5 @@
+import logging
+
 from datetime import date as _date, timedelta
 from typing import Dict, List
 
@@ -7,6 +9,9 @@ from .conference import Conference
 from .day import Day
 from .event import Event
 from .room import Room
+
+
+log = logging.getLogger(__name__)
 
 
 class Schedule(XmlSerializable):
@@ -54,6 +59,7 @@ class Schedule(XmlSerializable):
 
     def merge(self, other):
         # TODO (zuntrax) implement
+        log.warning("Schedule merging not stubbed, discarding second schedule.")
         return self
 
     def append_xml(self, xml: XmlWriter, extended: bool):
