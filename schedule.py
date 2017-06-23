@@ -77,7 +77,7 @@ def initialize_handlers(kind: str, config: ConfigParser):
         except KeyError:
             log.error(f'Handler type "{handler_type}" does not exist. Skipping.')
             continue
-        handler = handler_class(full_name, handler_config)
+        handler = handler_class(full_name, handler_config, config)
         handlers.append(handler)
 
     return handlers

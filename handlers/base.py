@@ -5,9 +5,10 @@ from fahrplan.model.schedule import Schedule
 
 
 class HandlerBase(metaclass=ABCMeta):
-    def __init__(self, name: str, config: ConfigParser):
+    def __init__(self, name: str, config: ConfigParser, global_config: ConfigParser):
         self.name = name
         self.config = config
+        self.global_config = global_config
 
 
 class ImportHandler(HandlerBase, metaclass=ABCMeta):
