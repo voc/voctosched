@@ -1,4 +1,6 @@
+import codecs
 import re
+import translitcodec
 from string import ascii_letters, digits
 
 from fahrplan.model.conference import Conference
@@ -15,6 +17,7 @@ class StandardSlugGenerator:
 
     @staticmethod
     def normalize_name(name: str):
+        name = codecs.encode(name, 'translit/long')
         name = re.sub(r"\W+", "_", name)
         legal_chars = ascii_letters + digits + "_"
         pattern = f"[^{legal_chars}]+"
