@@ -9,7 +9,7 @@ log = logging.getLogger(__name__)
 
 
 class ExtendedXMLExportHandler(ExportHandler):
-    @noexcept
+    @noexcept(log)
     def run(self, schedule: Schedule) -> bool:
         path = self.config["path"]
         try:

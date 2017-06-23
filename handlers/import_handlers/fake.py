@@ -1,3 +1,5 @@
+import logging
+
 from fahrplan.datetime import parse_date, parse_datetime, parse_duration, parse_time
 from fahrplan.model.conference import Conference
 from fahrplan.model.event import Event
@@ -8,7 +10,7 @@ from hacks import noexcept
 
 
 class FakeImportHandler(ImportHandler):
-    @noexcept
+    @noexcept(logging.getLogger(__name__))
     def run(self):
         conference = Conference(
             title="DENOG8",
