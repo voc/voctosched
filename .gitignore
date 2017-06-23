@@ -108,6 +108,7 @@ ENV/
 
 # data we work with
 *.conf
+*.ini
 *.xml
 *.csv
 *.json
