@@ -18,3 +18,9 @@ Some example are:
 # validator
 The generated XML can be validated with the c3voc validator
 which can be found here https://github.com/voc/schedule/tree/master/validator
+
+a quick validation can be done with:
+
+```
+xmllint --noout --schema https://github.com/voc/schedule/blob/master/validator/xsd/schedule.xml.xsd schedule.xml
+```
