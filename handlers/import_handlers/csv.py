@@ -26,7 +26,7 @@ class CSVImportHandler(ImportHandler):
             day_count=int(self.global_config.get('conference', 'day_count')),
             start=parse_date(self.global_config.get('conference', 'start')),
             end=parse_date(self.global_config.get('conference', 'end')),
-            time_slot_duration=parse_duration(self.global_config.get('conference', 'timeslot'))
+            time_slot_duration=parse_duration(self.global_config.get('conference', 'time_slot_duration'))
         )
         slug = StandardSlugGenerator(conference)
         schedule = Schedule(conference=conference)
