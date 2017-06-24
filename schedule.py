@@ -132,10 +132,6 @@ def main():
     final_schedule = reduce(Schedule.merge, imported_schedules)
     log.debug('Finished merging schedules.')
 
-    # TODO (zuntrax) use config["conference"]
-    if 'conference' in config:
-        log.warning('Overriding conference data not implemented.')
-
     export_handlers = initialize_export_handlers(config)
     results = []
     log.info('Running export handlers')
