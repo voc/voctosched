@@ -57,7 +57,7 @@ class Event(XmlSerializable):
             xml.tag("date", format_datetime(self.date))
             xml.tag("start", format_time(self.start))
             xml.tag("duration", format_duration(self.duration))
-            xml.tag("room", self.room)
+            xml.tag("room", self.room.name)
             xml.tag("slug", self.slug)
             with xml.context("recording"):
                 xml.tag("license", self.rec_license)

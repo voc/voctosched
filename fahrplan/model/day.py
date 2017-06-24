@@ -14,10 +14,13 @@ class Day(XmlSerializable):
         self.start = start
         self.end = end
         self.rooms = {}
+        self.schedule = None
 
     def add_room(self, room: Room):
         if room.name not in self.rooms:
             self.rooms[room.name] = room
+            room.day = self
+        # TODO (zuntrax) logging
 
     def add_event(self, room: str, event: Event):
         self.rooms[room].add_event(event)
@@ -51,6 +54,14 @@ class Day(XmlSerializable):
             return max(end for end in room_ends if end is not None)
         except ValueError:
             raise FahrplanError(f"Day {self.index} has no events, cannot infer timestamps")
+
+    def merge(self, other: 'Day'):
+        for name, room in other.rooms.items():
+            if name in self.rooms:
+                self.rooms[name].merge(room)
+            else:
+                self.rooms[name] = room
+                room.day = self
 
     def append_xml(self, xml: XmlWriter, extended: bool):
         with xml.context("day", index=self.index, date=self.date,
