@@ -33,6 +33,9 @@ class Schedule(XmlSerializable):
                 date: _date = conference.start + timedelta(i)
                 self.days[index] = Day(index=index, date=date)
 
+        for day in self.days.values():
+            day.schedule = self
+
         self.version = version
 
     def add_day(self, day: Day):
@@ -41,6 +44,7 @@ class Schedule(XmlSerializable):
         :return: None
         """
         self.days[day.index] = day
+        day.schedule = self
         self.conference.day_count += 1
 
     def add_room(self, name: str, day_filter: List[int] = None):
@@ -57,10 +61,37 @@ class Schedule(XmlSerializable):
     def add_event(self, day: int, room: str, event: Event):
         self.days[day].add_event(room, event)
 
-    def merge(self, other):
-        # TODO (zuntrax) implement
-        log.warning("Schedule merging not stubbed, discarding second schedule.")
-        return self
+    def merge(self, other: 'Schedule'):
+        if self.conference.acronym != other.conference.acronym:
+            log.warning(f'Conference acronym mismatch: "{self.conference.acronym}" != '
+                        f'"{other.conference.acronym}". Are you sure you are using compatible data?')
+
+        for index, day in other.days.items():
+            if index in self.days:
+                self.days[index].merge(day)
+            else:
+                self.days[index] = day
+                day.schedule = self
+
+        if len(self.days) != self.conference.day_count:
+            log.warning('Day count mismatch, adjusting.')
+        return self  # needed to be able to chain calls
+
+    def has_collision(self, new_event: 'Event'):
+        for day in self.days.values():
+            for room in day.rooms.values():
+                for event in room.events.values():
+                    if event.slug == new_event.slug:
+                        log.error(f'Duplicate slug "{event.slug}"')
+                        return True
+                    if event.id == new_event.id:
+                        log.error(f'Duplicate event id "{event.id}"')
+                        return True
+                    if event.guid == new_event.guid:
+                        log.error(f'Duplicate guid "{event.guid}"')
+                        return True
+        else:
+            return False
 
     def append_xml(self, xml: XmlWriter, extended: bool):
         with xml.context("schedule"):
