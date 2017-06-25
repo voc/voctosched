@@ -1,11 +1,12 @@
 # voctosched
-Scripts for converting various formats to [frab](https://github.com/frab/frab)-style fahrplan XML.
-This also may or may not be useful for users of [pentabarf](https://github.com/nevs/pentabarf).
+Tool for converting and merging conference schedules.
+We mostly work with the export format of [frab](https://github.com/frab/frab) (orininally [pentabarf](https://github.com/nevs/pentabarf)), but often, conference schedules are only available as CSV or in other custom formats.
+Voctosched allows importing schedules, merging them, and exporting to the desired output format.
 
 This repository implements an object representation of the frab export data model.
 This can be used to build different im-/exporters or manipulators for the frab schedule export.
 
-There is also a number of application which can display the schedule on mobile devices or infoscreens.
+There is also a number of applications which can display the schedule on mobile devices or infoscreens.
 Some examples are:
 
 * https://infobeamer.com
