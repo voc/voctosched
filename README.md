@@ -1,4 +1,4 @@
-# schedule-ng
+# voctosched
 Scripts for converting various formats to [frab](https://github.com/frab/frab)-style fahrplan XML.
 This also may or may not be useful for users of [pentabarf](https://github.com/nevs/pentabarf).
 
@@ -25,11 +25,11 @@ The generated XML can be validated with the c3voc validator, which can be found 
 A quick validation can also be done with:
 
 ```
-xmllint --noout --schema https://github.com/zuntrax/schedule-ng/blob/master/schema/basic.xsd schedule.xml
+xmllint --noout --schema https://github.com/zuntrax/voctosched/blob/master/schema/basic.xsd schedule.xml
 ```
 
 For our extended format, use:
 
 ```
-xmllint --noout --schema https://github.com/zuntrax/schedule-ng/blob/master/schema/extended.xsd schedule.xml
+xmllint --noout --schema https://github.com/zuntrax/voctosched/blob/master/schema/extended.xsd schedule.xml
 ```
