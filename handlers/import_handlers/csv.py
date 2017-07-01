@@ -37,6 +37,10 @@ class CSVImportHandler(ImportHandler):
             reader = csv.DictReader(csv_file, delimiter=',')
             for row in reader:
                 schedule.add_room(row['Room'])
+                speakers = {}
+                for pair in row['Speakers'].split('|'):
+                    uid, _, name = pair.partition(":")
+                    speakers[int(uid)] = name
                 schedule.add_event(int(row['Day']), row['Room'], Event(
                     uid=row['ID'],
                     date=parse_datetime(row['Date'] + 'T' + row['Start'] + ':00'),
@@ -47,7 +51,7 @@ class CSVImportHandler(ImportHandler):
                     description=row.get('Description', ''),
                     abstract=row.get('Abstract', ''),
                     language=row['Language'],
-                    persons={row['SpeakerID']: row['Speaker']},
+                    persons=speakers,
                     download_url=row.get('File URL', ''),
                     recording_license=rec_license
                 ))
