@@ -1,3 +1,4 @@
+import binascii
 import csv
 import logging
 
@@ -38,9 +39,12 @@ class CSVImportHandler(ImportHandler):
             for row in reader:
                 schedule.add_room(row['Room'])
                 speakers = {}
-                for pair in row['Speakers'].split('|'):
-                    uid, _, name = pair.partition(":")
-                    speakers[int(uid)] = name
+                for speaker in row['Speakers'].split(','):
+                    speaker = speaker.strip()
+                    uid = binascii.crc32(speaker.encode())
+                    speakers[int(uid)] = speaker
+                if not speakers:
+                    speakers = {2053352521: "no_name"}
                 schedule.add_event(int(row['Day']), row['Room'], Event(
                     uid=row['ID'],
                     date=parse_datetime(row['Date'] + 'T' + row['Start'] + ':00'),

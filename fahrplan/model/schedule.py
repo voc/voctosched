@@ -59,6 +59,8 @@ class Schedule(XmlSerializable):
                 day.add_room(Room(name))
 
     def add_event(self, day: int, room: str, event: Event):
+        if self.has_collision(event):
+            log.warning(f"Collision: {event.id}")
         self.days[day].add_event(room, event)
 
     def merge(self, other: 'Schedule'):
