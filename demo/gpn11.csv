@@ -1,0 +1,141 @@
+Room,Date,Day,Start,Duration,Title,ID,Abstract,Description,Language,Speakers,File URL
+GroßesStudio,2011-06-23,1,19:00,1:30,What to hack,1,Was auf der GPN alles gebastelt werden wird: - Dezentrale Twitter-Alternative - Film über Hackerspaces - Gulaschentropieerhöhungsgeräte - Gamejam ,"Vorstellung von Bastelprojekten auf der GPN:
+
+    ""Hacker werden hacken"", ein Film über Hackerspaces. Projektvorstellung und CfP (h0uz3)
+    Dezentrale Twitter-Alternative #12many (Scytale)
+    Bau alternativer Gulascherwärmgeräte mit Spiritus und Sonnenschein (sprawl)
+    Gamejam: ""Erschaffe ein Spiel. Hier ist dein Thema. Du hast 48 Stunden Zeit. Viel Glück."" - Einführung und Themenfindung. (til, vrld)",de,1:diverse,https://entropia.de/images/9/90/Gpn11-what-to-hack.mkv
+GroßesStudio,2011-06-23,1,20:45,1:00,Modernes JavaScript,2,JavaScript im Jahr 2011,"Die meisten von uns kennen JavaScript. Bei vielen hat es den Ruf einer Sprache für Frickler, mit nem Haufen globaler Variablen und keiner vernünftigen Laufzeitumgebung, da jeder Browser Details anders interpretiert. Den Code, den wir schreiben, klauen wir uns aus Schnipseln im Internet zusammen und verstehen nur die Hälfte der Details.
+
+Das muss nicht so sein. JavaScript hat einige Designfehler, aber wenn man sie kennt und vermeidet, verbirgt sich dahinter eine mächtige Sprache mit sehr interessanten Features, mit der man durchaus umfangreiche Projekte umsetzen kann. Und da JavaScript nicht nur im Browser läuft, sondern dank (dem übrigens auch ziemlich sehenswerten) Node.js auch serverseitig, kann man seine JavaScript-Kenntnisse überall anwenden.
+
+Der Vortrag zeigt kurz die Grundlagen der Sprache auf und räumt dabei mit einigen der verbreiteten Irrtümern und Unklarheiten auf. Der Hauptteil beschäftigt sich mit objektorientierter Programmierung im JavaScript-Stil und warum viele erfahrene Programmierer damit Probleme haben; mit Variablenscoping und Closures sowie Performancetuning. Außerdem wird serverseitiges JavaScript mit Node.js angesprochen. Und natürlich ist Zeit für Fragen und Antworten. ",de,2:Scytale,https://entropia.de/images/b/b2/Gpn11-modernes-javascript.mkv
+GroßerSeminarraum,2011-06-23,1,20:45,1:00,Game On,3,"Wie man es schafft, innerhalb von 48 Stunden ein Spiel zu programmieren.","LÖVE ist ein Framework für Windows, OSX und Linux mit dem man schnell und einfach 2D Spiele bauen kann. Egal ob es um die Entwicklung eines Prototypen, die Teilnahme an einem Gamejam oder die Beschaffung unglaublichen Reichtums geht, mit LÖVE ist (fast) alles machbar.
+Inhalt
+
+    Was kann LÖVE?
+    Verschiedene Libraries mit albernen Namen.
+    Nachprogrammieren von Klassikern.
+
+Voraussetzungen
+
+Lua Kenntnisse sind von Vorteil. Aneignen kann man die sich z.B. hier:
+
+    Programming in Lua (Achtung: alte Version)
+    Lua Koans (minus Zen)",de,3:vrld,https://entropia.de/images/5/55/Gpn11-love.mkv
+GroßesStudio,2011-06-23,1,22:00,0:30,Weltraumprogrammiernacht,4,Eine Einführung in das diesjährige Programmierspiel,"Hallo Ihr Flauschebällchen (sagt urs),
+
+4 Tage, Ihr, wir, Zeux! Will sagen (muss schreiben weil der petschge mich sonst haut da ich das Notebook gerade offen habe), wir – die Würzburger nörds (vom N2N) – bringen zur GPN ein wunderbar flauschiges Beamer-Programmier-Spiel mit bunten und tollen Farben mit. Weltprogrammiernacht.
+
+Zitat aus unserem Wiki (ja, wir sind modern, wir haben sowas) (Mirror):
+
+    Der Weltraum. Unendliches, menschenfeindliches, höchst tödliches,
+
+    unangenehmes Vakuum. Kein vernünftiger Mensch würde sich da jemals freiwillig hinbegeben. Deswegen schicken zivilisierte Lebensformen dort lediglich Roboter hin, die den Weltraum für sie erobern. Die grundlegende Spielidee ist klassischer Space Conquest im Sinne von Master of Orion, Ascendancy oder OGame. Der Unterschied: da man nicht sinnvoll über große Entfernungen im Weltraum kommunizieren kann (wegen, öh, Subraumschwingungen, genau!), muss man seine Roboter-Raumschiffe mit Programmen versehen, und losschicken, um den Weltraum zu erobern.
+
+    Am Anfang wird sich das Spiel auf diesen einen Planeten, und die an- und abfliegenden Raumschiffe konzentrieren. Doch irgendwann wird ein Planet zu kompliziert zu managen sein, und für eine Expansion des ""Imperiums"" wird es nötig sein, weitere Planeten zu kolonisieren. Spätestens dann muss man anfangen, auch Programme in die Planetenbasen zu stecken, damit die eigenmächtig Raumschiffe bauen und dispatchen, und sich verteidigen können. (Beachtet: man kann nicht auf große Distanzen kommunizieren, die Dinger müssen dann also autark sein).
+
+Die Spieler können Code zum Steuern von Raumschiffen und Planetenbasen in LUA einwerfen (Drogen gehen extra) und unser Code macht dann daraus tolle bunte Dinge (Pommes) die der Beamer (oder das Notebook mit entsprechendem Visualisierungs-Client) dem Spieler ins Gesicht drückt. Genau! ",de,4:urs,https://entropia.de/images/e/e1/Gpn11-weltraumprogrammiernacht.mkv
+GroßerSeminarraum,2011-06-23,1,22:00,0:30,ENTE,5,Allgemeine Belustigung des Internets,"Algemeine Belustigung des Internets. ""Gans"", du Dummkopf! Siehe: http://www.youtube.com/watch?v=1IFPSoGYrPI",de,5:andi (Entropia),https://entropia.de/images/9/9d/Gpn11-ente.mkv
+GroßesStudio,2011-06-24,2,13:15,1:00,Warum wir noch Mathematiker brauchen,6,Unlösbare Probleme und wieso man sich mit ihnen beschäftigt,".Hilbert hatte einen Traum: Er wünschte sich eine formale Sprache, in der alle Mathematik formuliert werden kann, die widerspruchsfrei und vollständig ist und eine Maschine, die jede Aussage als wahr oder falsch identifiziert. Dann kam Church und weckte Hilbert aus seinem Traum: So eine Maschine kann es nicht geben, wir brauchen also weiter Mathematiker um Beweise zu finden.
+
+Nach einer logikgeschichtlichen Einordnung werden wir sehen wie Church sein junges Lambda-Kalkül, die Mutter aller funktionalen Programmiersprachen, verwendet um das Entscheidungsproblem negativ zu lösen – wenige Monate bevor dies auch von Turing mit seiner bekannteren Arbeit zum Halteproblem gezeigt wurde. ",de,6:nomeata,https://entropia.de/images/8/88/Gpn11-warum-wir-noch-mathematiker-brauchen.mkv
+GroßerSeminarraum,2011-06-24,2,13:15,1:00,LASN – Labor zur Analyse Sozialer Netzwerke,7,"Projekte auf der Suche nach der wahren Intention. Vernetzung, Kommunikation, Social Media. LASN will sensibilisieren und Bewusstsein schaffen. Wie unsozial ist dein Social Network? Und was machen wir daraus?",".Projekte auf der Suche nach der wahren Intention. Vernetzung, Kommunikation, Social Media. LASN will sensibilisieren und Bewusstsein schaffen. Wie unsozial ist dein Social Network? Und was machen wir daraus?
+
+LASN beschäftigt sich auf interdisziplinärer Ebene mit Social Media-Diensten. Informatiker, Geisteswissenschaftler und Künstler arbeiten mit gemeinsamer Zielsetzung; hierbei geht es einerseits darum, Studien oder Projekte zum Thema zu generieren und andererseits User zu sensibilisieren und die wahren Intentionen der Dienste ans Tageslicht zu bringen. Unsere Ergebnisse sind theoretischer wie praktischer Art, wollen höflich aufklären oder auch mal kräftig schütteln. ",de,7:LASN,https://entropia.de/images/5/58/Gpn11-lasn.mkv
+GroßesStudio,2011-06-24,2,16:15,1:00,Evolutionary Algorithms 101,8,Ein kurzer Überblick der Grundlagen evolutionärer Algorithmen: Von genetischen Algorithmen bis hin zu multikriterieller Optimierung.,"Ganz trocken gesagt bieten sich evolutionäre Algorithmen – dessen bekannteste Vertreter wohl die genetischen Algorithmen sind – zur Lösung von Optimierungsproblemen an. Was sie so faszinierend macht, ist deren Funktionsweise: Sich ein Beispiel aus der Natur nehmend, kämpfen verschiedene komplett willkürliche Lösungsansätze ums blanke Überleben! Nur die Besten werden einen Partner finden und Nachkommen zeugen, bevor sie dem Tode geweiht sind. Es dauert viele Generationen, bis endlich ein Sieger gekürt werden kann.
+
+Nein, der Vortrag wird nicht einem Naturfilm ähneln: Es sollen Grundlagen zum Verständnis dieses Bereiches der künstlichen Intelligenz bzw. des künstlichen Lebens übermittelt werden. Woher kommt das Ganze, und noch viel wichtiger: Warum benutzt man sowas? Was sind die Vorteile, welches die Nachteile? Zum Abschluss soll auch noch ein ganz konkretes Verfahren skizziert werden, welches den aktuellen Stand der Technik darstellt. ",de,8:NicApicella,https://entropia.de/images/c/c8/Gpn11-evolutionary-algorithms-101.mkv
+GroßerSeminarraum,2011-06-24,2,16:15,1:00,lolpizza,9,Ein Tool zur Pizzabestellung,".Chaostreff- und Hackerspace-Gäste kennen das Problem vermutlich: Gemeinsam soll Pizza bestellt werden, aber wie sammelt man am besten die Bestellung? Warum bieten eigentlich die großen Pizzadienste keine Funktionalität für Gruppen-Bestellungen?
+
+sECuRE erzählt eine lustige Geschichte über die Entstehung von lolpizza und (damit ihr euch nicht nur amüsiert, sondern auch etwas lernt) dessen Implementation.
+
+Guten Appetit! ",de,9:sECuRE,https://entropia.de/images/e/ea/Gpn11-lolpizza.mkv
+GroßesStudio,2011-06-24,2,17:30,1:00,GSM,10,Dieser Vortrag gibt einen Überblick über verschiedene aktuelle Projekte im Bereich des GSM Mobilfunks. Es werden verschiedene Sicherheitsrelevante Themen wie IMSI-Catcher und das Knacken der Verschlüsselung besprochen.,"Die Analyse von Mobilfunknetzen war lange Zeit für jeden außer für Mobilfunk-Anbieter und Hersteller extrem aufwändig. Der Grund hierfür war ein Mangel an entsprechender Hard-und Software. Dies hat sich in den letzten Jahren durch diverse Open-Source Projekte grundlegend geändert. Heute ist es möglich eine eigene Mobilfunkzelle zu betreiben sowie die vollständige Kontrolle über Mobilfunktelefone zu erhalten. Mit diesen Möglichkeiten kann gezeigt werden, dass der 20 Jahre alte GSM Mobilfunk stark anfällig für Angriffe ist.
+
+In diesem Vortrag werden beispielhaft die folgenden Themen angesprochen:
+
+    Mitschneiden und Analysieren von GSM Signalen
+    Eigenes Mobilfunknetzwerk aufbauen
+    IMSI Catcher
+    Verschlüsselung brechen",de,10:Konrad Meier|11:Dennis Wehrle,https://entropia.de/images/1/1d/Gpn11-gsm.mkv
+GroßerSeminarraum,2011-06-24,2,17:30,1:00,Plausible Deniability,11,Hier soll der aktuelle Stand von Deniable Encryption vorgestellt werden sowie eine kleine Diskussion zu Passwort Storage geführt werden.,"Hier soll der aktuelle Stand von Deniable Encryption vorgestellt werden sowie eine kleine Diskussion zu Passwort Storage geführt werden.
+
+Vorläufige Agenda:
+
+    Grundlagen Plausible Deniable Encryption
+    Techniken der Disk Encryption
+    Angriffs-Szenarien
+    Passwort Storage Verfahren",de,12:Daniel,https://entropia.de/images/d/db/Gpn11-plausible-deniability.mkv
+GroßesStudio,2011-06-24,2,18:45,1:00,"Computerspiele, Kunst und Volksverhetzung",12,Ein Resümee zu 1378(km),"     Computerspiele = Kunst oder Kunsthonig?!
+    Staatsschutz klopft an: Volksverhetzung?
+    Computerspiele-Bewertung ohne diese zu sehen oder gar zu spielen (How to)
+    Es war einmal eine Zeitung mit 4 Buchstaben??? Die Meinungsbildung in Gesellschaft und Politik.
+    Die vermeintliche Übereinstimmung zwischen Klischee und Wahrheit",de,13:Jens M. Stober,https://entropia.de/images/e/e3/Gpn11-computerspiele-kunst-und-volksverhetzung.mkv
+GroßerSeminarraum,2011-06-24,2,18:45,1:00,Wavelets,13,"An introduction to wavelets, from theory to implementation","Wavelets are increasingly being used in signal processing, digital audio and video compression, and more, replacing the ""old"" Fourier Transform.
+
+In this short talk the fundamental ideas and concepts about wavelets will be presented, including (but not only): what's the difference between wavelets and the Fourier transform, Haar and Daubechies wavelets, how to implement the Fast Wavelet Transform.
+
+Some knowledge of math (algebra, signal processing) is required. ",en,14:the_nihilant,https://entropia.de/images/f/f1/Gpn11-wavelets.mkv
+GroßesStudio,2011-06-24,2,20:30,1:00,Shader Magic,14,Magische Lebendkodierung von Schattierern,"Ich erklaere zuerst, wieso Shadercoden so spassig ist und wie das Ganze funktioniert. Die zweite halbe Stunde werden wir live Shader in Minecraft reinhacken.
+
+Keine speziellen Vorkenntnisse notwendig. Mal was programmiert haben hilft. Minecraft gespielt haben auch ;) ",de,15:cupe,https://entropia.de/images/f/ff/Gpn11-shader-magic.mkv
+GroßerSeminarraum,2011-06-24,2,20:30,1:00,afk - Geeks auf Reisen,15,Hacks und Tools um besser durchs Real Life zu reisen.,"afk. Reisen mit Technologie. Über häufiges, leichtes, technologieunterstützes Reisen. Congress, Camp, GPN und dazwischen noch Hackerspaces besuchen: Wer glaubt, dass Geeks nur zuhause vorm Rechner sitzen, liest zu viel Spiegel Online. Trotzdem ist es gar nicht so einfach, von A nach B zu kommen und sich dann auch noch zurecht zu finden: Das Gepäck wird mit unwichtigen Dingen vollgepackt und dennoch vergisst man Essenzielles, falsch und zu teuer bezahlte Verkehrsmittel verhindern, dass man sich den neuen Laptop leisten kann und dann geht auch noch der Strom aus...
+
+In diesem Vortrag will ich ein bisschen Erfahrung und Überlegungen einbringen und gerne auch über weitere Tricks und Tools diskutieren. ",de,16:hds,https://entropia.de/images/a/a1/Gpn11-afk.mkv
+GroßesStudio,2011-06-24,2,21:45,2:00,Gulaschbytes,16,Die Bilderrätselshow mit Gulasch. Nerdkompatibilität und Gesichtspalmen sind garantiert!,"Du hast lebendiges Kopfkino? Im Nerdalltag fragst du dich manchmal, warum Ubuntu das Logo noch nicht in viele bunte UUUU geändert hat, ein Hex-Editor zaubern kann, oder gar, ob Vi ein Editor oder doch nur ein vollständiger Eiersatz ist?
+Die Teams beginnen abwechselnd damit, Bytes zu raten. Das Team, das an der Reihe ist, muss das Byte innerhalb der vorgegebenen Zeit lösen. Schafft es das nicht, darf das Konkurrenzteam weiterraten. Bei schwierigen Bytes kann es vorkommen, dass dabei keines der Teams auf die Lösung kommt. In diesem Fall dürfen beide Teams gleichzeitig raten - und es werden Tipps gegeben, wobei sich die Punkte für das Byte pro Tipp halbieren.
+Dann suchen wir *dich*! Spiel mit und gewinne tolle Preise von getDigital.de.
+
+Natürlich musst du nicht alleine spielen. Gesucht werden 4 Teams mit jeweils 3 Leuten (ggf. auch 6 Teams).",de,17:jiska,https://entropia.de/images/b/b8/Gpn11-gulaschbytes.mkv
+GroßerSeminarraum,2011-06-25,3,12:00,1:00,Mysteriöse Ausstellung neben dem Hackcenter,17,"Eine Einführung in pervasive Games und eine Führung durch ""Paparazzi (Arbeitstitel)"" neben dem Hackcenter.","
+
+    Das GameLab des Instituts für Postdigitale Narrativiät unter der Leitung von Prof. Michael Bielicky präsentiert vom 22. bis 28. Juni 2011 in den Lichthöfen der Staatlichen Hochschule für Gestaltung Karlsruhe die Ausstellung ""Paparazzi (Arbeitstitel).""
+
+    Die Ausstellung ist das Ergebnis des gleichnamigen, alltagsdurchdringenden Spielkonzeptes, welches im Wintersemester 2010/11 von Hannes Gerlach, Greta Hoffmann, Adam Rafinski, Marco Zampella und Moph Zielke entwickelt wurde. Gezeigt werden Portraitaufnahmen der teilnehmenden Künstler/-innen. Die Werke thematisieren Phänomene wie Stalking, Bildüberwachung oder Privatsphäre und setzen sich zudem kritisch mit der Wahrnehmungen des Seins und dem künstlerischen Prozess auseinander. In einer Zeit, in welcher der gläserne Mensch und das Sammeln von Daten immer mehr zur Realität werden, versucht ""Paparazzi (Arbeitstitel)"" bewusst für diese Themen zu sensibilisieren.",de,18:Hedi|19:Moph,https://entropia.de/images/8/8e/Gpn11-pervasive-games.mkv
+GroßesStudio,2011-06-25,3,13:15,1:00,Internet Governance,18,Ein Streifzug durch die Geschichte des Internet Governance.,"Angefangen von den ""DNS Wars"" werden wir ein Blick auf die Standardisierung von IPv6 werfen, deren politischen Auswirkungen; auch e-Initiativen verschiedener Laender.
+
+Desweiteren werden wir ein Blick auf die UN-Anstrebungen eine multilaterale ""multistakeholderism"" Internet Governance zu bilden werfen. Erstmal muessen im Rahmen der UN natuerlich diese Begriffe alle definiert werden.
+
+Wir werden die Resultate der beiden Phasen des World Summit on the Information Society aus Genf und Tunis betrachten und anhand des WSIS Forums 2011 (insbesondere der Internet Governance Forum Debatten dort) auf die Agenda der WSIS 2015 schliessen. Wird es ICANN-Wars geben?",de,20:hannes,https://entropia.de/images/4/4d/Gpn11-internet-governance.mkv
+GroßerSeminarraum,2011-06-25,3,13:15,1:00,Einführung in Go,19,Eine Einführung in das Brettspiel,"Go ist auch ein Brettspiel. Kaum Regeln, unendliche Möglichkeiten. Pflichtveranstaltung für alle die es noch nicht kennen. :-) Keine Vorkenntnisse notwendig.",de,21:Hauke Löffler,https://entropia.de/images/4/42/Gpn11-go.mkv
+GroßesStudio,2011-06-25,3,16:15,1:00,Mercurial erweitern,21,Tiefergehendes zu Mercurial. Von Graphen und Extensions.,"Der Vortrag wirft einen Blick auf das dezentrale Versionskontrollsystem Mercurial. Mercurial beschraenkt sich in der Standardinstallation auf einige wenige wichtige Kommandos, bringt jedoch eine Vielzahl von nuetzlichen Erweiterungen mit. Sollte uns einmal eine Funktionalitaet fehlen, schreibt der geneigte Hacker sich eben selbst eine Extension.
+
+Wir werden im Rahmen des Vortrags einen Blick auf die Mercurial Internals und die dahinterliegenden Konzepte werfen um selbst eine kleine Extension zu entwickeln. Vorkentnisse in Git/Mercurial und Python waeren nicht schlecht :) ",de,22:dsp,https://entropia.de/images/6/65/Gpn11-mercurial-erweitern.mkv
+GroßerSeminarraum,2011-06-25,3,15:15,2:00,Invasion der Roboter,22,Zwischen Industrie und Kultur,"Bei “Robotern” denken viele Menschen an Science-Fiction, an eine böse, von Menschen geschaffene Bedrohung, an niedliche, künstliche Haustiere oder an Fließbandarbeiter, die niemals für eine bessere Bezahlung streiken. Doch, was sind Roboter? Dieses ist eine der Fragen, den dieser multimediale Vortrag behandeln wird. Es wird gezeigt, wo wir heute Roboter antreffen können. Und welchen Einfluss diese auf die Literatur, auf Filme, auf die Gesellschaft, das Militär, die Forschung oder die Industrie genommen haben. Der Vortrag gilt als Anstoß, über die eigenen Erfahrungen mit Robotern zu sprechen – gerne im Anschluss bei einer Club-Mate oder während am eigenen Roboter gebaut wird.
+
+Den Vortrag hält Pylon, der sich während seines Studiums der Mechatronik und in seiner Freizeit gerne mit Robotern beschäftigt.
+
+Das Mitbringen von Robotern ist ausdrücklich erlaubt! Menschen haften für ihre Roboter. ",de,23:Pylon,https://entropia.de/images/2/22/Gpn11-roboter.mkv
+GroßesStudio,2011-06-25,3,17:30,0:30,Hackstation,23,Magnetkarten gegen Packstation Phishing... nicht.,"Die kurze Geschichte über Magnetkarten, warum sie kein Sicherheitsmerkmal sind und lecker Phishe zum Nachtisch. Es geht natürlich um die DHL Packstation :>",de,24:hadez,https://entropia.de/images/d/d0/Gpn11-hackstation.mkv
+GroßerSeminarraum,2011-06-25,3,17:30,1:00,30 Jahre Weltraumgeschichte,24,Das Space-Shuttle-Programm endet dieses Jahr. Videos mit Erzählung,"Das Space-Shuttle-Programm geht dieses Jahr zu Ende. 134 Flüge liegen hinter ihm, einer kommt noch. Es ist ein Symbol für Fortschritt, aber mit den zwei tödlichen Unfällen auch ein Symbol für Selbstüberschätzung, Technikwahn und unbeherrschbare Mammutprojekte.
+
+Das 100-Tonnen-Baby ist wahnsinnig kompliziert, aber auch wahnsinnig interessant. Wir gucken coole Videos und quatschen darüber. ",de,25:Hendrik,https://entropia.de/images/f/f9/Gpn11-30-jahre-weltraumgeschichte.mkv
+GroßesStudio,2011-06-25,3,18:45,1:00,Lightning Talks,25,Spontane Kurzvorträge,Mehr oder weniger kurze Vorträge zu beliebigen Themen. Tragt eure Vorträge einfach ein. Bei Fragen oder Anmerkungen könnt ihr euch gerne an syb wenden.,de,26:syb|1:diverse,https://entropia.de/images/7/7e/Gpn11-lightning-talks.mkv
+GroßesStudio,2011-06-25,3,20:45,1:15,1001 Programmiernächte,26,Es waren einmal ... Nerds. Eine fantastische Geschichte einer großartigen Veranstaltung. Garantiert interaktiv mit tollen Spielen!,.Es waren einmal ... in einem weit entfernten Land... Nerds. Eine fantastische Geschichte einer großartigen Veranstaltung. Garantiert interaktiv mit tollen Spielen! Zehn Jahre GPN. Eine Retrospektive in Multimedia.,de,27:Neingeist|28:Heiko,https://entropia.de/images/2/2a/Gpn11-1001-programmiernaechte.mkv
+GroßerSeminarraum,2011-06-26,3,00:00,1:00,Ergebnisse Gamejam,27,Vorstellung der Ergebnisse des Gamejams,,de,1:diverse,https://entropia.de/images/0/0c/Gpn11-gamejam-ergebnisse.mkv
+GroßesStudio,2011-06-26,4,12:00,1:00,CouchDB,28,Eine Einführung,"CouchDB ist ein
+
+    schema free
+    document oriented
+    database
+    HTTP server.
+
+Was noch? :)
+
+Durch die Präsentation werden diese Punkte vorgestellt:
+
+    (Einführung)
+    Dokument
+    API
+    SELECT --> MapReduce
+    JOIN --> ? :)
+    Sicherheit
+    Replikation
+    Applications mit CouchApp",de,29:Jonathan Giroux ,https://entropia.de/images/f/f3/Gpn11-couchdb.mkv
+GroßesStudio,2011-06-26,4,13:15,1:00,volkszaehler.org,29,Ein Smart Meter im Selbstbau,"Seit dem 1.1.2010 müssen Stromversorger ihren Kunden für Neubauten so genannte ""intelligente Stromzähler"" (Smart Meter) anbieten. Der Kunde soll dadurch seinen Stromverbrauch analysieren und optimieren können.
+
+Die dabei anfallenden Daten (""Stromverbrauchsprofil"") erlauben einen sehr detallierten Einblick in den Tagesablauf des Nutzers (wann steht er auf? wann geht er in's Bett? wann kocht er? wie oft verwendet er seine Spülmaschine? ist er gerade in Urlaub? wie oft und wie lange geht er überhaupt in Urlaub? ...). Darum sollten die Daten ausschließlich für den Nutzer selbst zur Verfügung stehen - und das geht nur, wenn man sich den Smart Meter selbst baut. Mit etwas Geschick und Zeit lässt sich das mit Hilfe eines Standard-µC-Moduls aufbauen.
+
+http://volkszaehler.org/ ",de,30:Justin Otherguy,https://entropia.de/images/9/91/Gpn11-volkszaehler.org.mkv
+GroßerSeminarraum,2011-06-26,4,13:15,1:00,Zero Install,30,"Paketverwaltung mal anders: dezentral, sicher, Plattform-unabhängig","Zero Install ist ein dezentrales Distributions-übergreifendes Software-Installationssystem unter der LGPL. Es erlaubt Softwareentwicklern Programme direkt auf ihren eigenen Websites zu veröffentlichen und bietet dabei Funktionen, die man von zentralen Repositories gewöhnt ist, wie z.B. gemeinsam genutzte Bibliotheken, automatische Updates und digitale Signaturen. ",de,31:Bastian Eicher,https://entropia.de/images/f/f1/Gpn11-zeroinstall.mkv
