@@ -36,6 +36,9 @@ class CSVImportHandler(ImportHandler):
         with StringIO(content) as csv_file:
             reader = csv.DictReader(csv_file, delimiter=',')
             for row in reader:
+                if row['Room'] == '' and row['ID'] == '' and row['Title'] == '':
+                    continue
+
                 schedule.add_room(row['Room'])
                 speakers = {}
                 for pair in row['Speakers'].split('|'):
