@@ -23,4 +23,5 @@ class StandardSlugGenerator:
         pattern = f"[^{legal_chars}]+"
         name = re.sub(pattern, "", name)
         name = name.lower()
+        name = name.strip('_')
         return name
