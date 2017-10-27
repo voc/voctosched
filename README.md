@@ -12,6 +12,9 @@ Some examples are:
 * https://github.com/tuxmobil/CampFahrplan
 * https://github.com/Wilm0r/giggity
 
+# Examples
+Have a look at the `demo` directory, this should be a good starting point.
+
 # Currently supported inputs
 * CSV
 
