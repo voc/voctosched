@@ -24,8 +24,9 @@ class XmlWriter:
         self.buffer += self.indentation_style * self.level
 
     def tag(self, tag: str, inner: Any, **properties):
+        inner = str(inner).replace('&', '&amp;')
         self.append_indentation()
-        if inner is None or str(inner) == "":
+        if not inner:
             self.buffer += f"<{self.format_properties(tag, properties)} />\n"
         elif "\n" not in str(inner):
             self.buffer += f"<{self.format_properties(tag, properties)}>{inner}</{tag}>\n"
