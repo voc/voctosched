@@ -9,7 +9,7 @@ There is also a number of application which can display the schedule on mobile d
 Some examples are:
 
 * https://infobeamer.com
-* https://github.com/tuxmobil/CampFahrplan
+* https://github.com/EventFahrplan/EventFahrplan
 * https://github.com/Wilm0r/giggity
 
 # Examples
