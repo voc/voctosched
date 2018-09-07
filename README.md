@@ -12,8 +12,13 @@ Some examples are:
 * https://github.com/EventFahrplan/EventFahrplan
 * https://github.com/Wilm0r/giggity
 
-# Examples
-Have a look at the `demo` directory, this should be a good starting point.
+# Usage
+```
+pip3 install --user translitcodec
+./schedule.py -vvd -c ./demo/gpn11.ini
+```
+For more information about the input parameters and the generated output
+have a look at the `demo` directory, this should be a good starting point.
 
 # Currently supported inputs
 * CSV
