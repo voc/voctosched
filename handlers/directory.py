@@ -1,12 +1,13 @@
 from typing import Type
 
 from .base import ImportHandler, ExportHandler
-from .import_handlers import FakeImportHandler, CSVImportHandler
+from .import_handlers import FakeImportHandler, CSVImportHandler, JSONImportHandler
 from .export_handlers import BasicXMLExportHandler, ExtendedXMLExportHandler
 
 import_handlers = {
     "csv": CSVImportHandler,
     "fake": FakeImportHandler,
+    "json": JSONImportHandler,
 }
 
 export_handlers = {

@@ -22,6 +22,7 @@ have a look at the `demo` directory, this should be a good starting point.
 
 # Currently supported inputs
 * CSV
+* JSON
 
 # Currently supported outputs
 * basic XML, frab format

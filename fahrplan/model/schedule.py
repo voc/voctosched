@@ -24,6 +24,7 @@ class Schedule(XmlSerializable):
             self.days = days
         else:
             # TODO (MO) document automatic day generation
+            # also this should be refactored into something like generate_days
             if conference.day_count and not conference.start:
                 raise FahrplanError("conference.start is not set, "
                                     "cannot automatically create days.")
