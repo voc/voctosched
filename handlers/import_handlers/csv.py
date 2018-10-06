@@ -10,7 +10,7 @@ from fahrplan.model.event import Event
 from fahrplan.model.schedule import Schedule
 from fahrplan.slug import StandardSlugGenerator
 from hacks import noexcept
-from util import read_file
+from util import read_input
 
 
 log = logging.getLogger(__name__)
@@ -32,7 +32,7 @@ class CSVImportHandler(ImportHandler):
         schedule = Schedule(conference=conference)
         rec_license = self.global_config.get('conference', 'license')
 
-        content = read_file(self.config['path'])
+        content = read_input(self.config['path'])
         with StringIO(content) as csv_file:
             reader = csv.DictReader(csv_file, delimiter=',')
             for row in reader:
