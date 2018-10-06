@@ -11,7 +11,7 @@ from fahrplan.model.event import Event
 from fahrplan.model.room import Room
 from fahrplan.model.schedule import Schedule
 from hacks import noexcept
-from util import read_file
+from util import read_input
 
 
 log = logging.getLogger(__name__)
@@ -21,7 +21,7 @@ class JSONImportHandler(ImportHandler):
     @noexcept(log)
     def run(self):
         # import json file to dict tree
-        tree = json.loads(read_file(self.config['path']))
+        tree = json.loads(read_input(self.config['path']))
 
         # handy references to subtrees
         conf_tree = tree['schedule']['conference']
