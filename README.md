@@ -14,7 +14,7 @@ Some examples are:
 
 # Usage
 ```
-pip3 install --user translitcodec
+pip3 install --user -r requirements.txt
 ./schedule.py -vvd -c ./demo/gpn11.ini
 ```
 For more information about the input parameters and the generated output
