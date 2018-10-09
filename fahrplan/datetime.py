@@ -11,7 +11,7 @@ def format_datetime(datetime: dt.datetime):
 
 
 def parse_datetime(date_string: str):
-    return dt.datetime.strptime(date_string, DATETIME_FORMAT)
+    return dt.datetime.strptime(date_string.split('+')[0], DATETIME_FORMAT)
 
 
 def format_time(time: dt.time):
