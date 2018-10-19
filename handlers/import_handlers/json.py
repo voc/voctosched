@@ -41,8 +41,8 @@ class JSONImportHandler(ImportHandler):
             day = Day(
                 index=day_tree['index'],
                 date=parse_date(day_tree['date']),
-                start=parse_datetime(day_tree['start']),
-                end=parse_datetime(day_tree['end'])
+                start=parse_datetime(day_tree['day_start'].split('+')[0]),
+                end=parse_datetime(day_tree['day_end'].split('+')[0])
             )
             schedule.add_day(day)
 
@@ -52,7 +52,7 @@ class JSONImportHandler(ImportHandler):
                 for talk in room_talks:
                     persons = {}
                     for person_info in talk['persons']:
-                        name = person_info['full_public_name']
+                        name = person_info['public_name']
                         # generate some hopefully unique ids if they are 0
                         uid = person_info['id'] or (crc32(name.encode()) & 0xffffffff)
                         persons[uid] = name
@@ -71,9 +71,11 @@ class JSONImportHandler(ImportHandler):
                         url = attachment_info['url']
                         attachments[url] = title
 
+                    log.debug(f'Event id {talk["id"]}')
+
                     day.add_event(room_name, Event(
                         uid=talk['id'],
-                        date=parse_datetime(talk['date']),
+                        date=parse_datetime(talk['date'].split('+')[0]),
                         start=parse_time(talk['start']),
                         duration=parse_duration(talk['duration']),
                         slug=talk['slug'],

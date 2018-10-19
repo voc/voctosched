@@ -1,3 +1,5 @@
+import logging
+
 import datetime as dt
 from typing import Dict, Union, Callable
 
@@ -32,7 +34,7 @@ class Event(XmlSerializable):
         self.description = description
         self.logo = logo
         if not persons:
-            raise FahrplanError("Excepted at least one person for event creation, none are given.")
+            logging.warning(f"Event {uid} has no persons!")
         self.persons = persons
         self.links = links or {}
         self.attachments = attachments or {}
