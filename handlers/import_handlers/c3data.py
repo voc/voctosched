@@ -42,7 +42,7 @@ query {
         logo
         startDate
         startTime
-      	duration: durationTime
+        duration: durationTime
         slug
         title
         subtitle
@@ -82,10 +82,8 @@ log = logging.getLogger(__name__)
 class C3DataImportHandler(ImportHandler):
     @noexcept(log)
     def run(self):
-        # query = query_template.replace('__ACRONYM__', self.config.get('acronym'))
-        # resp = run_query(self.config.get('url'), query)
-        with open('cache.json', 'r') as f:
-            resp = json.loads(f.read())
+        query = query_template.replace('__ACRONYM__', self.config.get('acronym'))
+        resp = run_query(self.config.get('url'), query)
         conf_tree = resp['data']['conference']
 
         conference = Conference(
@@ -145,46 +143,3 @@ class C3DataImportHandler(ImportHandler):
             ))
 
         return schedule
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
