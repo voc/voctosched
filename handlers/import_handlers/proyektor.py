@@ -2,24 +2,25 @@ import json
 import logging
 import datetime
 
-from io import StringIO
-from pprint import pprint
-
 from ..base import ImportHandler
-from fahrplan.datetime import parse_date, parse_time, parse_datetime, parse_duration
+from fahrplan.datetime import parse_date, parse_datetime, parse_duration
 from fahrplan.model.conference import Conference
 from fahrplan.model.event import Event
 from fahrplan.model.schedule import Schedule
 from fahrplan.slug import StandardSlugGenerator
 from hacks import noexcept
-from util import read_file
+from util import read_input
 
 
 log = logging.getLogger(__name__)
 
+
 class ProyektorImportHandler(ImportHandler):
     @noexcept(log)
     def run(self):
+        # import json file to dict tree
+        tree = json.loads(read_input(self.config['path']))
+
         # create the conference object
         conference = Conference(
             title=self.global_config.get('conference', 'title'),
@@ -29,37 +30,49 @@ class ProyektorImportHandler(ImportHandler):
             end=parse_date(self.global_config.get('conference', 'end')),
             time_slot_duration=parse_duration(self.global_config.get('conference', 'time_slot_duration'))
         )
-        slug = StandardSlugGenerator(conference)
+
         schedule = Schedule(conference=conference)
         rec_license = self.global_config.get('conference', 'license')
+        day0 = parse_date(self.global_config.get('conference', 'start'))
 
-        day0 = datetime.datetime(2018, 6, 26)
-
-        with open(self.config['path'], "r") as read_file:
-            parsed_json = json.load(read_file)
-
-            for row in parsed_json:
-                if row['floor'] not in ['Theater', 'Workshop Hangar']:
+        for b in tree:
+            # filter for locations we want to import
+            if b['genre'] not in ['Lecture', 'Workshop', 'Podium']:  # todo move to config
+                continue
+            # one event (booking) can have multiple shows in proyektor. Most likely we will only have on per talk.
+            # We need to look into all as the room (stage) is child of a show and we want to filter stages
+            for show in b['shows']:
+                if show['stage'] not in ['Content', 'Oase', 'Workshop-Hanger']:  # todo move to config
                     continue
-
-                start = parse_datetime(row['start'][:19])
-                end = parse_datetime(row['end'][:19])
-                day =  abs(start.date() - day0.date()).days
+                start = parse_datetime(show['start'][:19])
+                end = parse_datetime(show['end'][:19])
+                day = (start.date() - day0).days + 1
                 duration = end - start
+                # build a description the dirty way. currently we dont know how many languages are possible
+                description = ""
+                if b['description_de']:
+                    description = b['description_de']
+                if b['description_en']:
+                    if len(description) == 0:
+                        description = b['description_en']
+                    else:
+                        description = "\n\n\n" + b['description_en']
 
                 event = Event(
-                    uid=row['showId'].replace('_', '00'),  # underscore raus machen
+                    uid=b['booking_id'],
                     date=start,
                     start=start.time(),
                     duration=duration,
-                    slug=slug,
-                    title=row['artist'],
-                    description=row.get('genre'),
-                    language='EN',
-                    persons={'0':' '}
+                    slug=show['name'].replace(" ", "_"),
+                    title=show['name'],
+                    description=description,
+                    language='EN',  # we don't know that as the proyektor currently does not have that field
+                    persons={0: b['artist_name']},
+                    recording_license=rec_license,
+                    event_type=b['genre']
                 )
 
-                schedule.add_room(row['floor'])
-                schedule.add_event(day, row['floor'], event)
+                schedule.add_room(show['stage'])
+                schedule.add_event(day, show['stage'], event)
 
         return schedule
