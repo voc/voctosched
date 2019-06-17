@@ -1,11 +1,12 @@
 import datetime as dt
-
+import logging
 from fahrplan.datetime import format_datetime
 from fahrplan.exception import FahrplanError
 from fahrplan.xml import XmlWriter, XmlSerializable
 from .event import Event
 from .room import Room
 
+log = logging.getLogger(__name__)
 
 class Day(XmlSerializable):
     def __init__(self, index: int, date: dt.date, start: dt.datetime = None, end: dt.datetime = None):
@@ -64,6 +65,9 @@ class Day(XmlSerializable):
                 room.day = self
 
     def append_xml(self, xml: XmlWriter, extended: bool):
+        if not any(room.events for room in self.rooms.values()):
+            log.warning(f"Day {self.index} has no events, skipping")
+            return
         with xml.context("day", index=self.index, date=self.date,
                          start=format_datetime(self.get_start()),
                          end=format_datetime(self.get_end())):
