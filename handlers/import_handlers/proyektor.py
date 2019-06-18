@@ -46,17 +46,17 @@ class ProyektorImportHandler(ImportHandler):
                     continue
                 start = parse_datetime(show['start'][:19])
                 end = parse_datetime(show['end'][:19])
-                day = (start.date() - day0).days + 1
+                day = (start.date() - day0).days
                 duration = end - start
                 # build a description the dirty way. currently we dont know how many languages are possible
                 description = ""
                 if b['description_de']:
-                    description = b['description_de']
+                    description += b['description_de']
                 if b['description_en']:
                     if len(description) == 0:
-                        description = b['description_en']
+                        description += b['description_en']
                     else:
-                        description = "\n\n\n" + b['description_en']
+                        description += "\n\n\n" + b['description_en']
 
                 event = Event(
                     uid=b['booking_id'],
