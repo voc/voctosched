@@ -31,6 +31,7 @@ class ProyektorImportHandler(ImportHandler):
             time_slot_duration=parse_duration(self.global_config.get('conference', 'time_slot_duration'))
         )
 
+        slug = StandardSlugGenerator(conference)
         schedule = Schedule(conference=conference)
         rec_license = self.global_config.get('conference', 'license')
         day0 = parse_date(self.global_config.get('conference', 'start'))
@@ -74,7 +75,8 @@ class ProyektorImportHandler(ImportHandler):
                     date=start,
                     start=start.time(),
                     duration=duration,
-                    slug=show['name'].replace(" ", "_"),
+                    #slug=show['name'].replace(" ", "_"),
+                    slug=slug,
                     title=show['name'],
                     description=description,
                     language=language,  # we don't know that as the proyektor currently does not have that field
