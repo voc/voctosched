@@ -44,11 +44,12 @@ class ProyektorImportHandler(ImportHandler):
             for show in b['shows']:
                 if show['stage'] not in ['Content', 'Oase', 'Workshop-Hanger']:  # todo move to config
                     continue
-                start = parse_datetime(show['start'][:19])
-                end = parse_datetime(show['end'][:19])
+                start = parse_datetime(show['start'])
+                end = parse_datetime(show['end'])
                 day = (start.date() - day0).days + 1
+
                 duration = end - start
-                # build a description the dirty way. currently we dont know how many languages are possible
+                # build a description the dirty way. currently we don't know how many languages are possible
                 description = ""
                 if b['description_de']:
                     description += b['description_de']
@@ -77,7 +78,7 @@ class ProyektorImportHandler(ImportHandler):
                     title=show['name'],
                     description=description,
                     language=language,  # we don't know that as the proyektor currently does not have that field
-                    persons={0: b['artist_name']},
+                    persons={1: b['artist_name']},
                     recording_license=rec_license,
                     event_type=b['genre']
                 )

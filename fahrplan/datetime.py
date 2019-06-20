@@ -2,16 +2,15 @@ import datetime as dt
 
 from .exception import FahrplanError
 
-DATETIME_FORMAT = "%Y-%m-%dT%H:%M:%S"
 TIME_FORMAT = "%H:%M"
 
 
 def format_datetime(datetime: dt.datetime):
-    return datetime.strftime(DATETIME_FORMAT)
+    return datetime.isoformat()
 
 
 def parse_datetime(date_string: str):
-    return dt.datetime.strptime(date_string, DATETIME_FORMAT)
+    return dt.datetime.fromisoformat(date_string)
 
 
 def format_time(time: dt.time):
