@@ -38,8 +38,8 @@ class ProyektorImportHandler(ImportHandler):
 
         for b in tree:
             # filter for locations we want to import
-            if b['genre'] not in ['Lecture', 'Workshop', 'Podium']:  # todo move to config
-                continue
+            #if b['genre'] not in ['Lecture', 'Workshop', 'Podium', Talk]:  # todo move to config
+            #    continue
             # one event (booking) can have multiple shows in proyektor. Most likely we will only have on per talk.
             # We need to look into all as the room (stage) is child of a show and we want to filter stages
             for show in b['shows']:
@@ -52,13 +52,13 @@ class ProyektorImportHandler(ImportHandler):
                 duration = end - start
                 # build a description the dirty way. currently we don't know how many languages are possible
                 description = ""
-                if b['description_de']:
+                if 'description_de' in b:
                     description += b['description_de']
-                if b['description_en']:
+                if 'description_en' in b:
                     if len(description) == 0:
                         description += b['description_en']
                     else:
-                        description += "\n\n\n" + b['description_en']
+                        description += "\n\n" + b['description_en']
                 if "EN / DE" in description:
                     language = "en"
                 elif "DE / EN" in description:
@@ -78,13 +78,12 @@ class ProyektorImportHandler(ImportHandler):
                     #slug=show['name'].replace(" ", "_"),
                     slug=slug,
                     title=show['name'],
-                    description=description,
+                    description=description.lstrip(),
                     language=language,  # we don't know that as the proyektor currently does not have that field
                     persons={1: b['artist_name']},
                     recording_license=rec_license,
                     event_type=b['genre']
                 )
-
                 schedule.add_room(show['stage'])
                 schedule.add_event(day, show['stage'], event)
 
