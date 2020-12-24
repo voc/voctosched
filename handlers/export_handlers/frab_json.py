@@ -10,6 +10,8 @@ log = logging.getLogger(__name__)
 
 
 class FrabJsonExportHandler(ExportHandler):
+    content_type = "application/json"
+
     def export(self, schedule: Schedule) -> str:
         content = self.get_data(schedule)
         return json.dumps({"schedule": content}, ensure_ascii=False, sort_keys=True, indent=2)

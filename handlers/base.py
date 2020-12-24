@@ -23,6 +23,8 @@ class ImportHandler(HandlerBase, metaclass=ABCMeta):
 
 
 class ExportHandler(HandlerBase, metaclass=ABCMeta):
+    content_type = None
+
     @noexcept(log)
     def run(self, schedule: Schedule) -> bool:
         return write_output(self.config["path"], self.export(schedule))
