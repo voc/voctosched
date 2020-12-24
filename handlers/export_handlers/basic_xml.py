@@ -10,8 +10,5 @@ log = logging.getLogger(__name__)
 
 
 class BasicXMLExportHandler(ExportHandler):
-    @noexcept(log)
-    def run(self, schedule: Schedule) -> bool:
-        path = self.config["path"]
-        content = schedule.to_xml(extended=False)
-        return write_output(path, content)
+    def export(self, schedule: Schedule) -> str:
+        return schedule.to_xml(extended=False)

@@ -1,8 +1,13 @@
+import logging
+
 from abc import ABCMeta, abstractmethod
 from configparser import ConfigParser
 
 from fahrplan.model.schedule import Schedule
+from hacks import noexcept
+from util import write_output
 
+log = logging.getLogger(__name__)
 
 class HandlerBase(metaclass=ABCMeta):
     def __init__(self, name: str, config: ConfigParser, global_config: ConfigParser):
@@ -18,6 +23,10 @@ class ImportHandler(HandlerBase, metaclass=ABCMeta):
 
 
 class ExportHandler(HandlerBase, metaclass=ABCMeta):
-    @abstractmethod
+    @noexcept(log)
     def run(self, schedule: Schedule) -> bool:
+        return write_output(self.config["path"], self.export(schedule))
+
+    @abstractmethod
+    def export(self, schedule: Schedule) -> str:
         pass
