@@ -37,15 +37,15 @@ class FrabJsonExportHandler(ExportHandler):
                     {
                         "index": day.index,
                         "date": format_date(day.date),
-                        "day_start": format_datetime(day.get_start()),
-                        "day_end": format_datetime(day.get_end()),
+                        "day_start": format_datetime(day.get_start().astimezone()),
+                        "day_end": format_datetime(day.get_end().astimezone()),
                         "rooms": {
                             str(room.name): [
                                 {
                                     "id": event.id,
                                     "guid": event.guid,
                                     "logo": event.logo,
-                                    "date": format_datetime(event.date),
+                                    "date": format_datetime(event.date.astimezone()),
                                     "start": format_time(event.start),
                                     "duration": format_duration(event.duration),
                                     "room": str(room.name),
