@@ -59,7 +59,7 @@ class FrabJsonExportHandler(ExportHandler):
                                     "abstract": event.abstract,
                                     "description": event.description,
                                     "recording_license": event.rec_license,
-                                    "do_not_record": str(event.rec_optout).lower(),
+                                    "do_not_record": bool(event.rec_optout),
                                     **({"video_download_url": event.download_url} if event.download_url else {}),
                                     "persons": [
                                         {
