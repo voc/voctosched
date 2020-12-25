@@ -25,7 +25,7 @@ class FrabJsonExportHandler(ExportHandler):
         """
         return {
             "version": schedule.version,
-            "base_url": "", # we don't have this information
+            "base_url": None, # we don't have this information
             "conference": {
                 "acronym": schedule.conference.acronym,
                 "title": schedule.conference.title,
@@ -50,7 +50,7 @@ class FrabJsonExportHandler(ExportHandler):
                                     "duration": format_duration(event.duration),
                                     "room": str(room.name),
                                     "slug": event.slug,
-                                    "url": "", # we don't have this information
+                                    "url": None, # we don't have this information
                                     "title": event.title,
                                     "subtitle": event.subtitle,
                                     "track": event.track,
