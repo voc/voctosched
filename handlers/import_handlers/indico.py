@@ -43,11 +43,19 @@ class IndicoImportHandler(ImportHandler):
         schedule = Schedule(conference=conference)
         language = self.global_config.get('conference', 'language')
         license = self.global_config.get('conference', 'license')
-        fallback_speakers = {
-            0: self.global_config.get('conference', 'fallback_speaker')
-        }
 
         slugifier = StandardSlugGenerator(conference)
+
+        speaker_ids = set()
+        for co in indico_json['contributions']:
+            people = co['speakers'] + co['primaryauthors'] + co['coauthors']
+            for person in people:
+                speaker_ids.add(person['person_id'])
+
+        fallback_speaker_id = max(speaker_ids) + 1
+        fallback_speakers = {
+            fallback_speaker_id: self.global_config.get('conference', 'fallback_speaker')
+        }
 
         for co in indico_json['contributions']:
             start_dt = self.parse_indico_date(co['startDate'])
