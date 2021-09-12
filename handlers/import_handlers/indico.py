@@ -59,8 +59,12 @@ class IndicoImportHandler(ImportHandler):
 
         for co in indico_json['contributions']:
             start_dt = self.parse_indico_date(co['startDate'])
-            room = co['roomFullname'] or co['room'] or co['location'] or "Unknown"
             day = (start_dt.date() - conference.start).days + 1
+
+            # For talks with no proper room attached, try to get a valid
+            # name from the config [track2room], session -> room name.
+            room = co['roomFullname'] or co['room'] or co['location'] or \
+                   self.global_config.get('track2room', co['session'].strip(), fallback="Unknown")
 
             event = Event(
                 uid=co['friendly_id'],
