@@ -59,16 +59,18 @@ class ProyektorImportHandler(ImportHandler):
                         description += b['description_en']
                     else:
                         description += "\n\n" + b['description_en']
-                if "EN / DE" in description:
+
+                if "Language: EN" in description or "Language:EN" in description:
                     language = "en"
-                elif "DE / EN" in description:
+                elif "Language: DE" in description or "Language:DE" in description:
                     language = "de"
-                elif "DE" in description:
-                    language = "de"
-                elif "EN" in description:
-                    language = "en"
                 else:
                     language = "language not found"
+
+                if "Recording: Yes" in description or "Recording:Yes" in description:
+                    rec_optout = False
+                else:
+                    rec_optout = True
 
                 event = Event(
                     uid=b['booking_id'],
@@ -77,11 +79,12 @@ class ProyektorImportHandler(ImportHandler):
                     duration=duration,
                     #slug=show['name'].replace(" ", "_"),
                     slug=slug,
-                    title=show['name'],
-                    description=description.lstrip(),
+                    title=b['program_name'],
+                    description=description.strip('\n'),
                     language=language,  # we don't know that as the proyektor currently does not have that field
                     persons={1: b['artist_name']},
                     recording_license=rec_license,
+                    recording_optout=rec_optout,
                     event_type=b['genre']
                 )
                 schedule.add_room(show['stage'])
