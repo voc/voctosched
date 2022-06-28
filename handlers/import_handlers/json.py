@@ -51,7 +51,7 @@ class JSONImportHandler(ImportHandler):
 
                 for talk in room_talks:
                     persons = {}
-                    for person_info in talk['persons']:
+                    for person_info in talk.get('persons', []):
                         name = person_info['full_public_name']
                         # generate some hopefully unique ids if they are 0
                         uid = person_info['id'] or (crc32(name.encode()) & 0xffffffff)

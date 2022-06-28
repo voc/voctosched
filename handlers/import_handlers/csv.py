@@ -45,7 +45,7 @@ class CSVImportHandler(ImportHandler):
                     uid, _, name = pair.partition(":")
                     speakers[int(uid)] = name
                 schedule.add_event(int(row['Day']), row['Room'], Event(
-                    uid=row['ID'],
+                    uid=int(row['ID']),
                     date=parse_datetime(row['Date'] + 'T' + row['Start'] + ':00'),
                     start=parse_time(row['Start']),
                     duration=parse_duration(row['Duration']),
