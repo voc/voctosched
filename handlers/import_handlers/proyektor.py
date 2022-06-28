@@ -77,6 +77,12 @@ class ProyektorImportHandler(ImportHandler):
                 else:
                     title = b['program_name']
 
+                if b.get('program_name') == "":
+                    continue
+
+                persons_names = [x.strip() for x in b['program_name'].split(',')]
+                persons = dict(zip(range(len(persons_names)),persons_names))
+
                 event = Event(
                     uid=b['booking_id'],
                     date=start,
@@ -87,7 +93,7 @@ class ProyektorImportHandler(ImportHandler):
                     title=title,
                     description=description.strip('\n'),
                     language=language,  # we don't know that as the proyektor currently does not have that field
-                    persons={1: b['program_name']},
+                    persons=persons,
                     recording_license=rec_license,
                     recording_optout=rec_optout,
                     event_type=b['genre']
