@@ -58,6 +58,16 @@ class ProyektorImportHandler(ImportHandler):
                         description += b['description_en']
                     else:
                         description += "\n\n\n" + b['description_en']
+                if "EN / DE" in description:
+                    language = "en"
+                elif "DE / EN" in description:
+                    language = "de"
+                elif "DE" in description:
+                    language = "de"
+                elif "EN" in description:
+                    language = "en"
+                else:
+                    language = "language not found"
 
                 event = Event(
                     uid=b['booking_id'],
@@ -67,8 +77,8 @@ class ProyektorImportHandler(ImportHandler):
                     slug=show['name'].replace(" ", "_"),
                     title=show['name'],
                     description=description,
-                    language='EN',  # we don't know that as the proyektor currently does not have that field
-                    persons={1: b['artist_name']},
+                    language=language,  # we don't know that as the proyektor currently does not have that field
+                    persons={0: b['artist_name']},
                     recording_license=rec_license,
                     event_type=b['genre']
                 )
