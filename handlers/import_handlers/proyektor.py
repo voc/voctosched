@@ -72,6 +72,11 @@ class ProyektorImportHandler(ImportHandler):
                 else:
                     rec_optout = True
 
+                if  b.get('artist_name') != "":
+                    title = b.get('artist_name')
+                else:
+                    title = b['program_name']
+
                 event = Event(
                     uid=b['booking_id'],
                     date=start,
@@ -79,10 +84,10 @@ class ProyektorImportHandler(ImportHandler):
                     duration=duration,
                     #slug=show['name'].replace(" ", "_"),
                     slug=slug,
-                    title=b['program_name'],
+                    title=title,
                     description=description.strip('\n'),
                     language=language,  # we don't know that as the proyektor currently does not have that field
-                    persons={0: b['artist_name']},
+                    persons={1: b['program_name']},
                     recording_license=rec_license,
                     recording_optout=rec_optout,
                     event_type=b['genre']
