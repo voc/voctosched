@@ -48,7 +48,7 @@ class ProyektorImportHandler(ImportHandler):
 
                 start = parse_datetime(show['start'])
                 end = parse_datetime(show['end'])
-                day = (start.date() - day0).days
+                day = (start.date() - day0).days + 1
                 duration = end - start
                 # build a description the dirty way. currently we dont know how many languages are possible
                 description = ""
