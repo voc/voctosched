@@ -1,6 +1,9 @@
+import logging
+
 from fahrplan.xml import XmlWriter, XmlSerializable
 from .event import Event
 
+log = logging.getLogger(__name__)
 
 class Room(XmlSerializable):
     def __init__(self, name: str):
@@ -29,6 +32,7 @@ class Room(XmlSerializable):
     def merge(self, other: 'Room'):
         for uid, event in other.events.items():
             if self.day.schedule.has_collision(event):
+                log.warning(f'event collision while adding: "{event}"')
                 continue
             self.add_event(event)
 

@@ -31,45 +31,71 @@ class ProyektorImportHandler(ImportHandler):
             time_slot_duration=parse_duration(self.global_config.get('conference', 'time_slot_duration'))
         )
 
+        slug = StandardSlugGenerator(conference)
         schedule = Schedule(conference=conference)
         rec_license = self.global_config.get('conference', 'license')
         day0 = parse_date(self.global_config.get('conference', 'start'))
 
         for b in tree:
             # filter for locations we want to import
-            if b['genre'] not in ['Lecture', 'Workshop', 'Podium']:  # todo move to config
-                continue
+            #if b['genre'] not in ['Lecture', 'Workshop', 'Podium', 'Talk']:  # todo move to config
+            #    continue
             # one event (booking) can have multiple shows in proyektor. Most likely we will only have on per talk.
             # We need to look into all as the room (stage) is child of a show and we want to filter stages
             for show in b['shows']:
-                if show['stage'] not in ['Content', 'Oase', 'Workshop-Hanger']:  # todo move to config
-                    continue
+                #if show['stage'] not in ['Content', 'Oase', 'Workshop-Hanger']:  # todo move to config
+                #    continue
 
                 start = parse_datetime(show['start'])
                 end = parse_datetime(show['end'])
-                day = (start.date() - day0).days
+                day = (start.date() - day0).days + 1
+
                 duration = end - start
-                # build a description the dirty way. currently we dont know how many languages are possible
+                # build a description the dirty way. currently we don't know how many languages are possible
                 description = ""
-                if b['description_de']:
-                    description += b['description_de']
-                if b['description_en']:
+                if b.get('description_de'):
+                    description += b.get('description_de')
+                if b.get('description_en'):
                     if len(description) == 0:
-                        description += b['description_en']
+                        description += b.get('description_en')
                     else:
-                        description += "\n\n\n" + b['description_en']
+                        description += "\n\n\n" + b.get('description_en')
+
+                if "Language: EN" in description or "Language:EN" in description:
+                    language = "en"
+                elif "Language: DE" in description or "Language:DE" in description:
+                    language = "de"
+                else:
+                    language = "language not found"
+
+                if "Recording: Yes" in description or "Recording:Yes" in description:
+                    rec_optout = False
+                else:
+                    rec_optout = True
+
+                if  b.get('artist_name') != "":
+                    title = b.get('artist_name')
+                else:
+                    title = b['program_name']
+
+                if not b.get('program_name'):
+                    continue
+
+                persons_names = [x.strip() for x in b['program_name'].split(',')]
+                persons = dict(zip(range(len(persons_names)),persons_names))
 
                 event = Event(
                     uid=b['booking_id'],
                     date=start,
                     start=start.time(),
                     duration=duration,
-                    slug=show['name'].replace(" ", "_"),
-                    title=show['name'],
-                    description=description,
-                    language='EN',  # we don't know that as the proyektor currently does not have that field
-                    persons={1: b['artist_name']},
+                    slug=slug,
+                    title=title,
+                    description=description.strip('\n'),
+                    language=language,
+                    persons=persons,
                     recording_license=rec_license,
+                    recording_optout=rec_optout,
                     event_type=b['genre']
                 )
 
