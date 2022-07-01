@@ -73,16 +73,19 @@ class ProyektorImportHandler(ImportHandler):
                 else:
                     rec_optout = True
 
-                if  b.get('artist_name') != "":
+                if  b.get('artist_name'):
                     title = b.get('artist_name')
                 else:
                     title = b['program_name']
 
-                if not b.get('program_name'):
+                if not title:
                     continue
 
-                persons_names = [x.strip() for x in b['program_name'].split(',')]
-                persons = dict(zip(range(len(persons_names)),persons_names))
+                if  b.get('program_name'):
+                    persons_names = [x.strip() for x in b['program_name'].split(',')]
+                    persons = dict(zip(range(len(persons_names)),persons_names))
+                else:
+                    persons = {1: ""}
 
                 event = Event(
                     uid=b['booking_id'],
@@ -96,7 +99,8 @@ class ProyektorImportHandler(ImportHandler):
                     persons=persons,
                     recording_license=rec_license,
                     recording_optout=rec_optout,
-                    event_type=b['genre']
+                    event_type=b['genre'],
+                    download_url='https://content.kulturkosmos.de/'
                 )
 
                 schedule.add_room(show['stage'])
