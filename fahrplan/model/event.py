@@ -31,8 +31,6 @@ class Event(XmlSerializable):
         self.abstract = abstract
         self.description = description
         self.logo = logo
-        if not persons:
-            raise FahrplanError("Excepted at least one person for event creation, none are given.")
         self.persons = persons
         self.links = links or {}
         self.attachments = attachments or {}

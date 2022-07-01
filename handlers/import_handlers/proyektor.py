@@ -85,7 +85,7 @@ class ProyektorImportHandler(ImportHandler):
                     persons_names = [x.strip() for x in b['program_name'].split(',')]
                     persons = dict(zip(range(len(persons_names)),persons_names))
                 else:
-                    persons = {1: ""}
+                    persons = {}
 
                 event = Event(
                     uid=b['booking_id'],
