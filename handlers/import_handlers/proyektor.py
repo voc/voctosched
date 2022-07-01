@@ -66,7 +66,7 @@ class ProyektorImportHandler(ImportHandler):
                 elif "Language: DE" in description or "Language:DE" in description:
                     language = "de"
                 else:
-                    language = "language not found"
+                    language = ""
 
                 if "Recording: Yes" in description or "Recording:Yes" in description:
                     rec_optout = False
