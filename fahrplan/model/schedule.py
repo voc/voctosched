@@ -82,14 +82,14 @@ class Schedule(XmlSerializable):
         for day in self.days.values():
             for room in day.rooms.values():
                 for event in room.events.values():
+                    if event.guid == new_event.guid:
+                        log.error(f'Duplicate guid "{event.guid}"')
+                        return True
                     if event.slug == new_event.slug:
                         log.error(f'Duplicate slug "{event.slug}"')
                         return True
                     if event.id == new_event.id:
                         log.error(f'Duplicate event id "{event.id}"')
-                        return True
-                    if event.guid == new_event.guid:
-                        log.error(f'Duplicate guid "{event.guid}"')
                         return True
         else:
             return False
