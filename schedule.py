@@ -13,8 +13,8 @@ from handlers.base import ImportHandler, ExportHandler
 from handlers.directory import resolve_import_handler, resolve_export_handler
 
 
-if sys.version_info < (3, 6):
-    print("At least python version 3.6 is required to run.")
+if sys.version_info < (3, 8):
+    print("At least python version 3.8 is required to run.")
     sys.exit(1)
 
 

@@ -15,7 +15,7 @@ def looks_like_url(path: str):
 
 def write_output(path: str, content: str) -> bool:
     if path == 'STDOUT':
-        log.info(f'Writing to stdout.')
+        log.info('Writing to stdout.')
         sys.stdout.write(content)
         sys.stdout.flush()
         return True

@@ -60,6 +60,8 @@ class Schedule(XmlSerializable):
                 day.add_room(Room(name))
 
     def add_event(self, day: int, room: str, event: Event):
+        # ensure that room exiists
+        self.add_room(room, day)
         self.days[day].add_event(room, event)
 
     def merge(self, other: 'Schedule'):
@@ -82,14 +84,14 @@ class Schedule(XmlSerializable):
         for day in self.days.values():
             for room in day.rooms.values():
                 for event in room.events.values():
+                    if event.guid == new_event.guid:
+                        log.error(f'Duplicate guid "{event.guid}"')
+                        return True
                     if event.slug == new_event.slug:
                         log.error(f'Duplicate slug "{event.slug}"')
                         return True
                     if event.id == new_event.id:
                         log.error(f'Duplicate event id "{event.id}"')
-                        return True
-                    if event.guid == new_event.guid:
-                        log.error(f'Duplicate guid "{event.guid}"')
                         return True
         else:
             return False

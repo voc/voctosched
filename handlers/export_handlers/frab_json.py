@@ -25,7 +25,7 @@ class FrabJsonExportHandler(ExportHandler):
         """
         return {
             "version": schedule.version,
-            "base_url": None, # we don't have this information
+            "base_url": None,  # we don't have this information
             "conference": {
                 "acronym": schedule.conference.acronym,
                 "title": schedule.conference.title,

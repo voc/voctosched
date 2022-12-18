@@ -9,9 +9,9 @@ from util import write_output
 log = logging.getLogger(__name__)
 
 
-class BasicXMLExportHandler(ExportHandler):
+class ScheduleXMLExportHandler(ExportHandler):
     @noexcept(log)
     def run(self, schedule: Schedule) -> bool:
         path = self.config["path"]
-        content = schedule.to_xml(extended=False)
+        content = schedule.to_xml()
         return write_output(path, content)

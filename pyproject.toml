@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "voctosched"
+version = "0.9.0"
+description = ""
+authors = ["c3voc <voc@c3voc.de>"]
+license = "GPL-3.0"
+
+[tool.poetry.dependencies]
+python = "^3.8.1"
+translitcodec = "^0.7.0"
+
+[tool.poetry.dev-dependencies]
+flake8 = "^6.0.0"
+pytest = "^7.2.0"
+
+[tool.poetry.scripts]
+voctosched = "schedule:main"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
