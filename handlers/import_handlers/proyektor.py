@@ -101,7 +101,6 @@ class ProyektorImportHandler(ImportHandler):
                     event_type=b['genre']
                 )
 
-                schedule.add_room(show['stage'])
                 schedule.add_event(day, show['stage'], event)
 
         return schedule
