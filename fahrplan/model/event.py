@@ -1,8 +1,12 @@
+from dataclasses import dataclass
+from datetime import datetime, time, timedelta
 import datetime as dt
-from typing import Dict, Union, Callable
+from typing import Dict, List, Union, Callable
 
-from fahrplan.datetime import format_datetime, format_time, format_duration
-from fahrplan.exception import FahrplanError
+from binascii import crc32
+
+from fahrplan.datetime import format_datetime, format_time, format_duration, parse_datetime, parse_duration, parse_time
+from fahrplan.model.person import Person
 from fahrplan.xml import XmlWriter, XmlSerializable
 from ..uuid import uuid
 
@@ -40,6 +44,56 @@ class Event(XmlSerializable):
             self.slug = slug(self)
         else:
             self.slug = slug
+
+    @classmethod
+    def from_dict(cls, data: dict, pop_used_keys=False):
+        assert isinstance(data, dict), 'Data must be a dictionary.'
+
+        persons = {}
+        for person_info in data.get('persons', []):
+            person = Person.from_dict(person_info)
+            # generate some hopefully unique ids if they are 0
+            uid = person_info['id'] or (crc32(person.name.encode()) & 0xffffffff)
+            persons[uid] = person
+
+        links = {}
+        for link_info in data.get('links', []):
+            title = link_info['title']
+            # generate some hopefully unique ids if they are 0
+            url = link_info['url']
+            links[url] = title
+
+        attachments = {}
+        # TODO extract as util method
+        for attachment_info in data.get('attachments', []):
+            title = attachment_info['title']
+            # generate some hopefully unique ids if they are 0
+            url = attachment_info['url']
+            attachments[url] = title
+
+        obj = Event(
+            uid=data['id'],
+            guid=data['guid'],
+            date=parse_datetime(data['date']),
+            start=parse_time(data['start']),
+            duration=parse_duration(data['duration']),
+            slug=data['slug'],
+            title=data['title'],
+            subtitle=data.get('subtitle', ''),
+            abstract=data.get('abstract', ''),
+            description=data.get('description', ''),
+            language=data.get('language'),
+            persons=persons,
+            download_url=data.get('download_url', ''),
+            recording_license=data.get('recording_license', ''),
+            recording_optout=data['do_not_record'],
+            track=data.get('track', ''),
+            event_type=data.get('type', ''),
+            logo=data.get('logo', ''),
+            links=links,
+            attachments=attachments
+        )
+        return obj
 
     def add_person(self, uid: int, name: str):
         self.persons[uid] = name
