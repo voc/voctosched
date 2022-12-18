@@ -50,7 +50,7 @@ class Event(XmlSerializable):
     def add_attachment(self, href: str, title: str):
         self.attachments[href] = title
 
-    def append_xml(self, xml: XmlWriter, extended: bool):
+    def append_xml(self, xml: XmlWriter, extended: bool = False):
         with xml.context("event", guid=self.guid, id=self.id):
             xml.tag("date", format_datetime(self.date))
             xml.tag("start", format_time(self.start))
