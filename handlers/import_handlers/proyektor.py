@@ -1,6 +1,5 @@
 import json
 import logging
-import datetime
 
 from ..base import ImportHandler
 from fahrplan.datetime import parse_date, parse_datetime, parse_duration
@@ -73,7 +72,7 @@ class ProyektorImportHandler(ImportHandler):
                 else:
                     rec_optout = True
 
-                if  b.get('artist_name'):
+                if b.get('artist_name'):
                     title = b.get('artist_name')
                 else:
                     title = b['program_name']
@@ -81,9 +80,9 @@ class ProyektorImportHandler(ImportHandler):
                 if not title:
                     continue
 
-                if  b.get('program_name'):
+                if b.get('program_name'):
                     persons_names = [x.strip() for x in b['program_name'].split(',')]
-                    persons = dict(zip(range(len(persons_names)),persons_names))
+                    persons = dict(zip(range(len(persons_names)), persons_names))
                 else:
                     persons = {}
 
@@ -99,8 +98,7 @@ class ProyektorImportHandler(ImportHandler):
                     persons=persons,
                     recording_license=rec_license,
                     recording_optout=rec_optout,
-                    event_type=b['genre'],
-                    download_url='https://content.kulturkosmos.de/'
+                    event_type=b['genre']
                 )
 
                 schedule.add_room(show['stage'])

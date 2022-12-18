@@ -60,7 +60,7 @@ class XmlWriter:
 
     def append_dict(self, tag: str, content: Dict, prop: str):
         """
-        Serializes a dictionary. 
+        Serializes a dictionary.
         :param tag: Tag name to be used for dict items.
                     The container tag will have a pluralized version.
         :param content: Dictionary to be serialized. Keys turn into
