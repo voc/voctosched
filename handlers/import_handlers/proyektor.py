@@ -37,14 +37,14 @@ class ProyektorImportHandler(ImportHandler):
         day0 = parse_date(self.global_config.get('conference', 'start'))
 
         for b in tree:
-            # filter for locations we want to import
-            #if b['genre'] not in ['Lecture', 'Workshop', 'Podium', 'Talk']:  # todo move to config
-            #    continue
             # one event (booking) can have multiple shows in proyektor. Most likely we will only have on per talk.
             # We need to look into all as the room (stage) is child of a show and we want to filter stages
             for show in b['shows']:
-                #if show['stage'] not in ['Content', 'Oase', 'Workshop-Hanger']:  # todo move to config
-                #    continue
+                # filter for locations/types we want to import
+                if b['genre'] not in ['Workshop', 'Panel', 'Talk']:  # todo move to config
+                    continue
+                if show['stage'] not in ['Content', 'Oase', 'Workshop-Hanger']:  # todo move to config
+                    continue
 
                 start = parse_datetime(show['start'])
                 end = parse_datetime(show['end'])
@@ -61,14 +61,14 @@ class ProyektorImportHandler(ImportHandler):
                     else:
                         description += "\n\n\n" + b.get('description_en')
 
-                if "Language: EN" in description or "Language:EN" in description:
+                if "Language: EN" in description or "Language: EN" in description:
                     language = "en"
-                elif "Language: DE" in description or "Language:DE" in description:
+                elif "Language: DE" in description or "Language: DE" in description:
                     language = "de"
                 else:
                     language = ""
 
-                if "Recording: Yes" in description or "Recording:Yes" in description:
+                if "Recording: YES" in description or "Recording: YES" in description:
                     rec_optout = False
                 else:
                     rec_optout = True
