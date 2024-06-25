@@ -41,10 +41,10 @@ class ProyektorImportHandler(ImportHandler):
             # We need to look into all as the room (stage) is child of a show and we want to filter stages
             for show in b['shows']:
                 # filter for locations/types we want to import
-                if b['genre'] not in ['Workshop', 'Panel', 'Talk']:  # todo move to config
-                    continue
-                if show['stage'] not in ['Content', 'Oase', 'Workshop-Hanger']:  # todo move to config
-                    continue
+                #if b['genre'] not in ['Workshop', 'Panel', 'Talk']:  # todo move to config
+                #    continue
+                #if show['stage'] not in ['Content', 'Oase', 'Workshop-Hanger']:  # todo move to config
+                #    continue
 
                 start = parse_datetime(show['start'])
                 end = parse_datetime(show['end'])
@@ -54,12 +54,12 @@ class ProyektorImportHandler(ImportHandler):
                 # build a description the dirty way. currently we don't know how many languages are possible
                 description = ""
                 if b.get('description_de'):
-                    description += b.get('description_de')
+                    description += b.get('description_de').strip()
                 if b.get('description_en'):
                     if len(description) == 0:
-                        description += b.get('description_en')
+                        description += b.get('description_en').strip()
                     else:
-                        description += "\n\n\n" + b.get('description_en')
+                        description += "\n\n" + b.get('description_en').strip()
 
                 if "Language: EN" in description or "Language: EN" in description:
                     language = "en"
