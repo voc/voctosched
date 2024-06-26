@@ -14,7 +14,7 @@ def noexcept(log: Logger = getLogger(__name__)):
             # noinspection PyBroadException
             try:
                 return f(*args, **kwargs)
-            except:
+            except Exception:
                 log.exception("An unexpected error occurred.")
                 return False
         return noexcept_inner

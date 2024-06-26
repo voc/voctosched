@@ -2,7 +2,7 @@ from typing import Type
 
 from .base import ImportHandler, ExportHandler
 from .import_handlers import FakeImportHandler, CSVImportHandler, JSONImportHandler, ProyektorImportHandler
-from .export_handlers import BasicXMLExportHandler, ExtendedXMLExportHandler, FrabJsonExportHandler
+from .export_handlers import ScheduleXMLExportHandler, ExtendedXMLExportHandler, FrabJsonExportHandler
 
 import_handlers = {
     "csv": CSVImportHandler,
@@ -12,7 +12,8 @@ import_handlers = {
 }
 
 export_handlers = {
-    "xml-basic": BasicXMLExportHandler,
+    "xml": ScheduleXMLExportHandler,
+    "xml-basic": ScheduleXMLExportHandler,
     "xml-extended": ExtendedXMLExportHandler,
     "json-frab": FrabJsonExportHandler,
 }
