@@ -15,6 +15,16 @@ from util import read_input
 log = logging.getLogger(__name__)
 
 
+class UniqueIntEnsurer:
+    def __init__(self):
+        self.seen = set()
+
+    def ensure_unique(self, num):
+        while num in self.seen:
+            num += 300000
+        self.seen.add(num)
+        return num
+
 class ProyektorImportHandler(ImportHandler):
     @noexcept(log)
     def run(self):
@@ -32,6 +42,7 @@ class ProyektorImportHandler(ImportHandler):
         )
 
         slug = StandardSlugGenerator(conference)
+        uidUniqueEnsurer = UniqueIntEnsurer()
         schedule = Schedule(conference=conference)
         rec_license = self.global_config.get('conference', 'license')
         day0 = parse_date(self.global_config.get('conference', 'start'))
@@ -88,7 +99,7 @@ class ProyektorImportHandler(ImportHandler):
                     persons = {}
 
                 event = Event(
-                    uid=b['booking_id'],
+                    uid=uidUniqueEnsurer.ensure_unique(b['booking_id']),
                     date=start,
                     start=start.time(),
                     duration=duration,
