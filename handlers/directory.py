@@ -1,7 +1,7 @@
 from typing import Type
 
 from .base import ImportHandler, ExportHandler
-from .import_handlers import FakeImportHandler, CSVImportHandler, JSONImportHandler, ProyektorImportHandler
+from .import_handlers import FakeImportHandler, CSVImportHandler, JSONImportHandler, ProyektorImportHandler, XcalImportHandler
 from .export_handlers import BasicXMLExportHandler, ExtendedXMLExportHandler, FrabJsonExportHandler
 
 import_handlers = {
@@ -9,6 +9,7 @@ import_handlers = {
     "fake": FakeImportHandler,
     "json": JSONImportHandler,
     "proyektor": ProyektorImportHandler,
+    "xcal": XcalImportHandler,
 }
 
 export_handlers = {
