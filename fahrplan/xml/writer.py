@@ -30,6 +30,8 @@ class XmlWriter:
             return
 
         inner = str(inner).replace('&', '&amp;')
+        inner = str(inner).replace('<', '&lt;')
+        inner = str(inner).replace('>', '&gt;')
 
         if "\n" not in str(inner):
             self.buffer += f"<{self.format_properties(tag, properties)}>{inner}</{tag}>\n"
