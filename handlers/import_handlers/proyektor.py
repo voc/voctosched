@@ -14,6 +14,16 @@ from util import read_input
 log = logging.getLogger(__name__)
 
 
+class UniqueIntEnsurer:
+    def __init__(self):
+        self.seen = set()
+
+    def ensure_unique(self, num):
+        while num in self.seen:
+            num += 300000
+        self.seen.add(num)
+        return num
+
 class ProyektorImportHandler(ImportHandler):
     @noexcept(log)
     def run(self):
@@ -31,17 +41,18 @@ class ProyektorImportHandler(ImportHandler):
         )
 
         slug = StandardSlugGenerator(conference)
+        uidUniqueEnsurer = UniqueIntEnsurer()
         schedule = Schedule(conference=conference)
         rec_license = self.global_config.get('conference', 'license')
         day0 = parse_date(self.global_config.get('conference', 'start'))
 
         for b in tree:
-            # filter for locations we want to import
-            #if b['genre'] not in ['Lecture', 'Workshop', 'Podium', 'Talk']:  # todo move to config
-            #    continue
             # one event (booking) can have multiple shows in proyektor. Most likely we will only have on per talk.
             # We need to look into all as the room (stage) is child of a show and we want to filter stages
             for show in b['shows']:
+                # filter for locations/types we want to import
+                #if b['genre'] not in ['Workshop', 'Panel', 'Talk']:  # todo move to config
+                #    continue
                 #if show['stage'] not in ['Content', 'Oase', 'Workshop-Hanger']:  # todo move to config
                 #    continue
 
@@ -53,21 +64,21 @@ class ProyektorImportHandler(ImportHandler):
                 # build a description the dirty way. currently we don't know how many languages are possible
                 description = ""
                 if b.get('description_de'):
-                    description += b.get('description_de')
+                    description += b.get('description_de').strip()
                 if b.get('description_en'):
                     if len(description) == 0:
-                        description += b.get('description_en')
+                        description += b.get('description_en').strip()
                     else:
-                        description += "\n\n\n" + b.get('description_en')
+                        description += "\n\n" + b.get('description_en').strip()
 
-                if "Language: EN" in description or "Language:EN" in description:
+                if "Language: EN" in description or "Language: EN" in description:
                     language = "en"
-                elif "Language: DE" in description or "Language:DE" in description:
+                elif "Language: DE" in description or "Language: DE" in description:
                     language = "de"
                 else:
                     language = ""
 
-                if "Recording: Yes" in description or "Recording:Yes" in description:
+                if "Recording: YES" in description or "Recording: YES" in description:
                     rec_optout = False
                 else:
                     rec_optout = True
@@ -87,7 +98,7 @@ class ProyektorImportHandler(ImportHandler):
                     persons = {}
 
                 event = Event(
-                    uid=b['booking_id'],
+                    uid=uidUniqueEnsurer.ensure_unique(b['booking_id']),
                     date=start,
                     start=start.time(),
                     duration=duration,

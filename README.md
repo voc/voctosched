@@ -39,3 +39,9 @@ A quick validation can also be done with:
 ```
 xmllint --noout --schema https://raw.githubusercontent.com/voc/schedule/master/validator/xsd/schedule.xml.xsd schedule.xml
 ```
+
+# Tests
+Tests can be run with
+```
+python -m unittest discover . "*_test.py"
+```
