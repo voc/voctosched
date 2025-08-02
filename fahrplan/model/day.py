@@ -1,12 +1,13 @@
 import datetime as dt
 import logging
-from fahrplan.datetime import format_datetime
+from fahrplan.datetime import format_datetime, parse_date, parse_datetime
 from fahrplan.exception import FahrplanError
 from fahrplan.xml import XmlWriter, XmlSerializable
 from .event import Event
 from .room import Room
 
 log = logging.getLogger(__name__)
+
 
 class Day(XmlSerializable):
     def __init__(self, index: int, date: dt.date, start: dt.datetime = None, end: dt.datetime = None):
@@ -16,6 +17,18 @@ class Day(XmlSerializable):
         self.end = end
         self.rooms = {}
         self.schedule = None
+
+    @classmethod
+    def from_dict(cls, data: dict):
+        assert isinstance(data, dict), 'Data must be a dictionary.'
+
+        obj = Day(
+            index=data['index'],
+            date=parse_date(data['date']),
+            start=parse_datetime(data['start']),
+            end=parse_datetime(data['end'])
+        )
+        return obj
 
     def add_room(self, room: Room):
         if room.name not in self.rooms:
