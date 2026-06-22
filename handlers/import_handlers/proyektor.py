@@ -1,6 +1,7 @@
 import json
 import logging
 import datetime
+import re
 
 from ..base import ImportHandler
 from fahrplan.datetime import parse_date, parse_datetime, parse_duration
@@ -79,7 +80,7 @@ class ProyektorImportHandler(ImportHandler):
                 else:
                     language = ""
 
-                if "Recording: YES" in description or "Recording: YES" in description:
+                if re.search(r'(?<!Graphic )Recording: YES\b', description):
                     rec_optout = False
                 else:
                     rec_optout = True
