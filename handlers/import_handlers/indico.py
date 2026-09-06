@@ -28,8 +28,8 @@ class IndicoImportHandler(ImportHandler):
         if 'path' not in self.config:
             raise Error('Path to exported Indico JSON must be provided in the config file.')
 
-        with open(self.config['path']) as f:
-            indico_json = json.load(f)['results'][0]
+        indico_json = json.loads(read_input(self.config['path']))
+        indico_json = indico_json['results'][0]
 
         conference = Conference(
             title=self.global_config.get('conference', 'title'),
