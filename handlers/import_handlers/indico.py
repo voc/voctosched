@@ -12,6 +12,7 @@ from fahrplan.model.event import Event
 from fahrplan.model.schedule import Schedule
 from fahrplan.slug import StandardSlugGenerator
 from hacks import noexcept
+from util import read_input
 
 
 log = logging.getLogger(__name__)
