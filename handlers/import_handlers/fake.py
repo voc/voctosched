@@ -18,7 +18,8 @@ class FakeImportHandler(ImportHandler):
             day_count=2,
             start=parse_date("2016-11-23"),
             end=parse_date("2016-11-24"),
-            time_slot_duration=parse_duration("00:10")
+            time_slot_duration=parse_duration("00:10"),
+            time_zone_name="Europe/Berlin"
         )
         slug = StandardSlugGenerator(conference)
         schedule = Schedule(conference=conference)
