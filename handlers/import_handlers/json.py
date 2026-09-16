@@ -33,7 +33,8 @@ class JSONImportHandler(ImportHandler):
             day_count=0,  # do not automatically generate days
             start=parse_date(conf_tree['start']),
             end=parse_date(conf_tree['end']),
-            time_slot_duration=parse_duration(conf_tree['timeslot_duration'])
+            time_slot_duration=parse_duration(conf_tree['timeslot_duration']),
+            time_zone_name=conf_tree['time_zone_name'],
         )
         schedule = Schedule(conference=conference, version=tree['schedule']['version'])
 

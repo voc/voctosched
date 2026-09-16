@@ -10,13 +10,14 @@ class Conference(XmlSerializable):
     # TODO (MO) what is time_slot_duration even used for?
     def __init__(self, title: str, acronym: str, day_count: int = 0,
                  start: Union[date, None] = None, end: Union[date, None] = None,
-                 time_slot_duration: timedelta = None):
+                 time_slot_duration: timedelta = None, time_zone_name: str = None):
         self.title = title
         self.acronym = acronym
         self.day_count = day_count
         self.start = start
         self.end = end
         self.time_slot_duration = time_slot_duration
+        self.time_zone_name = time_zone_name
         self.schedule = None
 
     def get_start(self):
@@ -56,3 +57,6 @@ class Conference(XmlSerializable):
             xml.tag("start", self.get_start())
             xml.tag("end", self.get_end())
             xml.tag("timeslot_duration", format_duration(self.time_slot_duration))
+
+            if self.time_zone_name is not None:
+                xml.tag("time_zone_name", self.time_zone_name)

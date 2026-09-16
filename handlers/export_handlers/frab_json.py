@@ -33,6 +33,7 @@ class FrabJsonExportHandler(ExportHandler):
                 "end": format_date(schedule.conference.get_end()),
                 "daysCount": schedule.conference.day_count,
                 "timeslot_duration": format_duration(schedule.conference.time_slot_duration),
+                **({"time_zone_name": schedule.conference.time_zone_name} if schedule.conference.time_zone_name is not None else {}),
                 "days": [
                     {
                         "index": day.index,

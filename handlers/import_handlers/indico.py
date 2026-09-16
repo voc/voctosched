@@ -38,7 +38,8 @@ class IndicoImportHandler(ImportHandler):
             day_count=int(self.global_config.get('conference', 'day_count')),
             start=parse_date(self.global_config.get('conference', 'start')),
             end=parse_date(self.global_config.get('conference', 'end')),
-            time_slot_duration=parse_duration(self.global_config.get('conference', 'time_slot_duration'))
+            time_slot_duration=parse_duration(self.global_config.get('conference', 'time_slot_duration')),
+            time_zone_name=indico_json['timezone'],
         )
 
         schedule = Schedule(conference=conference)
