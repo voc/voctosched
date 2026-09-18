@@ -2,7 +2,7 @@ import json
 import logging
 import datetime as dt
 
-from pytz import timezone
+from pytz import timezone, BaseTzInfo
 
 from ..base import ImportHandler
 from fahrplan.datetime import parse_date, parse_time, parse_duration
@@ -45,6 +45,7 @@ class IndicoImportHandler(ImportHandler):
         schedule = Schedule(conference=conference)
         language = self.global_config.get('conference', 'language')
         license = self.global_config.get('conference', 'license')
+        event_tz = timezone(conference.time_zone_name or "UTC")
 
         slugifier = StandardSlugGenerator(conference)
 
@@ -60,7 +61,7 @@ class IndicoImportHandler(ImportHandler):
         }
 
         for co in indico_json['contributions']:
-            start_dt = self.parse_indico_date(co['startDate'])
+            start_dt = self.parse_indico_date(co['startDate'], event_tz)
             day = (start_dt.date() - conference.start).days + 1
 
             # For talks with no proper room attached, try to get a valid
@@ -101,12 +102,12 @@ class IndicoImportHandler(ImportHandler):
         return schedule
 
     @staticmethod
-    def parse_indico_date(indico_date: dict) -> dt.datetime:
+    def parse_indico_date(indico_date: dict, event_tz: BaseTzInfo) -> dt.datetime:
         try:
             date = parse_date(indico_date['date'])
             time = parse_time(indico_date['time'])
             tz = timezone(indico_date['tz'])
-            return dt.datetime.combine(date, time, tzinfo=tz)
+            return dt.datetime.combine(date, time, tzinfo=tz).astimezone(event_tz)
         except ValueError:
             raise FahrplanError(f"{indico_date} is not a valid Indico date")
 
