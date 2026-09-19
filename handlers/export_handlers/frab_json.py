@@ -65,7 +65,7 @@ class FrabJsonExportHandler(ExportHandler):
                                     "persons": [
                                         {
                                             "id": person[0],
-                                            "public_name": person[1]
+                                            "name": person[1]
                                         }
                                         for person in event.persons.items()
                                     ],
