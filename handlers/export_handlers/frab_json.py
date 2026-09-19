@@ -20,7 +20,7 @@ class FrabJsonExportHandler(ExportHandler):
     def run(self, schedule: Schedule) -> bool:
         path = self.config["path"]
         content = self.get_data(schedule)
-        return write_output(path, json.dumps({"schedule": content, "generator": GENERATOR}, ensure_ascii=False, sort_keys=True, indent=2))
+        return write_output(path, json.dumps({"schedule": content, "generator": GENERATOR, "$schema": "https://c3voc.de/schedule/schema.json"}, ensure_ascii=False, sort_keys=True, indent=2))
 
     def get_data(self, schedule):
         """
