@@ -10,13 +10,17 @@ from util import write_output
 
 log = logging.getLogger(__name__)
 
+GENERATOR = {
+    'name': 'voctosched'
+}
+
 
 class FrabJsonExportHandler(ExportHandler):
     @noexcept(log)
     def run(self, schedule: Schedule) -> bool:
         path = self.config["path"]
         content = self.get_data(schedule)
-        return write_output(path, json.dumps({"schedule": content}, ensure_ascii=False, sort_keys=True, indent=2))
+        return write_output(path, json.dumps({"schedule": content, "generator": GENERATOR}, ensure_ascii=False, sort_keys=True, indent=2))
 
     def get_data(self, schedule):
         """
